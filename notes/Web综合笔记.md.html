@@ -1,0 +1,122 @@
+<h1>Web性能优化（补充记忆）</h1>
+<h2><code>&lt;script&gt;</code>阻塞渲染</h2>
+<ul>
+<li><code>&lt;script&gt;</code>包含影响DOM的方法，所以会阻塞渲染</li>
+<li><code>&lt;script defer&gt;</code>不阻塞渲染，会按照顺序执行</li>
+<li><code>&lt;script async&gt;</code>不阻塞渲染，加载完就会执行</li>
+<li><code>&lt;script type=&quot;module&quot;&gt;</code>按需加载，按需执行</li>
+<li><code>&lt;script&gt;</code>会影响<code>DOMContentLoaded</code>事件</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>尽量将<code>&lt;script&gt;</code>放在<code>&lt;body&gt;</code>末尾</li>
+<li>添加<code>defer</code>或<code>async</code>属性</li>
+<li>业务无关的代码放在最后手动加载</li>
+</ul>
+<h2>FCP(First Contentful Paint) 首屏渲染</h2>
+<ul>
+<li>FCP(First Contentful Paint)：第一次渲染的时间点，发生在<code>&lt;head&gt;</code>加载完成后</li>
+<li>FCP不会影响渲染总时间，但对用户体验影响较大</li>
+<li>通常，期望FCP小于1秒</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>关键样式放在<code>&lt;head&gt;</code>中</li>
+<li><code>&lt;head&gt;</code>中不放阻塞脚本</li>
+<li>首屏HTML放在一个闭合的标签里</li>
+<li>使用骨架屏</li>
+</ul>
+<h2>CLS（Cumulative Layout Shift） 页面布局稳定性</h2>
+<ul>
+<li>渲染过程中，页面出现大量布局变化，会影响用户体验</li>
+<li>所以在Google Web Vitals中，将CLS纳入考量</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>使用骨架屏</li>
+<li>减少使用web fonts</li>
+<li>给图片添加起始尺寸</li>
+<li>避免后期加载的内容导致页面变化</li>
+</ul>
+<h2>LCP（Largest Contentful Paint）最大内容的渲染时间</h2>
+<ul>
+<li>面积最大的内容，通常是最重要的内容</li>
+<li>所以Google Vitals</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>将关键内容放在网页文件的前面</li>
+<li>通过样式的调整，满足产品的需要的同时，让关键内容更早渲染</li>
+</ul>
+<h2>加载资源</h2>
+<ul>
+<li>同样的效果，体积可能大不一样</li>
+<li>优化资源，不仅能提升用户体验，还给自己省钱</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>减少请求的资源</li>
+<li>压缩图片：位图（webp） 、 矢量svg</li>
+<li>压缩视频： mp4</li>
+<li>使用视频代替gif</li>
+<li>增加缓存时间</li>
+</ul>
+<h2>执行JS</h2>
+<p>单应用：</p>
+<ul>
+<li>所有JS都要优先执行</li>
+<li>JS负责渲染页面</li>
+<li>JS 的执行时间直接影响用户体验</li>
+</ul>
+<h2>执行效率</h2>
+<ul>
+<li>原生API，性能更好</li>
+<li>新特性，通常有更好的优化效率</li>
+<li>静态代码更容易优化</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>在开发中多使用新特性，通过构建工具保证兼容性</li>
+<li>通过统计工具，照顾尽可能多的用户，但要适当提高目标平台的要求</li>
+<li>配置编译工具，尽可能使用原生API</li>
+<li>不要使用<code>eval</code>，<code>new Function()</code>等方法</li>
+</ul>
+<h2>代码量</h2>
+<ul>
+<li>代码量越少，下载时间越短</li>
+<li>代码量越少，执行时间越短</li>
+<li>用户通常只需要20%的功能，不要让他们下载100%的代码</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>代码分模块，按需加载</li>
+<li>使用 ES Module ， 配合 http/2</li>
+<li>使用 tree-shaking</li>
+<li>使用高版本的第三方库</li>
+</ul>
+<h2>复用缓存</h2>
+<ul>
+<li>代码分模块时，根据使用场景分组</li>
+<li>升级依赖的时候，尽量集中更新某个模块</li>
+<li>尽量让生成的代码具备一样的hash</li>
+<li>如果有多个项目，则尽量使用相同的分包</li>
+</ul>
+<h2>SSR（Server Side Rendering ） 服务端渲染</h2>
+<ul>
+<li>在服务器上渲染内容，再返回给客户端</li>
+<li>通常SPA需要等待JS执行完毕，再请求数据，再渲染页面</li>
+<li>SSR可以让用户更早的看到内容，提升用户体验</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>使用SSR框架，比如Nuxt.js， Next.js</li>
+<li>使用支持边缘计算和Serverless服务，比如Vercel</li>
+<li>使用预渲染提前渲染页面</li>
+</ul>
+<h2>为用户回访、站内跳转做准备</h2>
+<ul>
+<li>静态资源保留较长时间的缓存</li>
+<li>加强资源复用，减少请求</li>
+<li>提前预缓存、预加载、本地化所需资源</li>
+<li>不长变得数据（例如头像），缓存一份</li>
+</ul>

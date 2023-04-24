@@ -1,0 +1,423 @@
+<h3>什么是HTML？</h3>
+<p>HTML称为超文本标记语言，是一种标记语言。</p>
+<h3>形式</h3>
+<p>&lt;标签&gt;内容&lt;/标签&gt;</p>
+<h3>正则匹配</h3>
+<p>/&lt;.?+&gt;/</p>
+<h3>HTML5标准框架</h3>
+<h5>外部框架</h5>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;Document.&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h5>body内部</h5>
+<pre><code class="language-html">&lt;nav&gt;页面导航&lt;/nav&gt;
+&lt;header&gt;头部&lt;/header&gt;
+&lt;main&gt;文档主要内容&lt;/main&gt;
+&lt;article&gt;文章&lt;/article&gt;
+&lt;aside&gt;主题之外&lt;/aside&gt;
+&lt;footer&gt;尾部&lt;/footer&gt;
+</code></pre>
+<p>标签的使用没有顺序规则</p>
+<h3>HTML5新内容</h3>
+<h5>普通表单</h5>
+<pre><code class="language-html">&lt;form action=&quot;&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;userName&quot;&gt;&lt;br&gt;
+    &lt;input type=&quot;password&quot; name=&quot;userPwd&quot;&gt;&lt;br&gt;
+    &lt;input type=&quot;email&quot;&gt;&lt;br&gt;
+    &lt;!--电话号tel种，没有验证，只能在移动端唤起数字键盘--&gt;
+    &lt;input type=&quot;tel&quot;&gt;&lt;br&gt;
+    &lt;!--只能输入合法的网址，必须包含协议头--&gt;
+    &lt;input type=&quot;url&quot;&gt;&lt;br&gt;
+    &lt;!--标准搜索框--&gt;
+    &lt;input type=&quot;search&quot;&gt;&lt;br&gt;
+    &lt;input type=&quot;number&quot;&gt;&lt;br&gt;
+    &lt;!--提交--&gt;
+    &lt;input type=&quot;submit&quot;&gt;&lt;br&gt;
+&lt;/form&gt;
+</code></pre>
+<h5>进阶表单</h5>
+<pre><code class="language-html">&lt;input type=&quot;range&quot; max=&quot;100&quot; min=&quot;0&quot; value=&quot;50&quot;&gt;&lt;br&gt;
+&lt;input type=&quot;color&quot;&gt;&lt;br&gt;
+&lt;input type=&quot;time&quot;&gt;&lt;br&gt;
+&lt;!--日期：年月日--&gt;
+&lt;input type=&quot;date&quot;&gt;&lt;br&gt;
+&lt;!--兼容性差--&gt;
+&lt;input type=&quot;datetime&quot;&gt;&lt;br&gt;
+&lt;input type=&quot;datetime-local&quot;&gt;&lt;br&gt;
+&lt;!--文件，multiple标签声明是否可以多选，email标签也可用--&gt;
+&lt;input type=&quot;file&quot; name=&quot;photo&quot; multiple&gt;
+</code></pre>
+<pre><code class="language-html">&lt;!--一个自动选中自动补全有提示文字的输入框--&gt;
+&lt;input type=&quot;text&quot; name=&quot;useName&quot; placehoder=&quot;放置的文字&quot; autofocus autocomplete=&quot;on&quot;&gt;&lt;br&gt;
+&lt;!--一个有允许输入正则验证，必填的电话号框--&gt;
+&lt;input type=&quot;tel&quot; name=&quot;userPhone&quot; required pattern=&quot;/^(\+86)?1\d{10}$/&quot;&gt;&lt;br&gt;
+</code></pre>
+<h5>可选列表</h5>
+<pre><code class="language-html">&lt;input type=&quot;text&quot; list=&quot;subjects&quot;&gt;
+
+&lt;datalist id=&quot;subjects&quot;&gt;
+	&lt;option value=&quot;文本&quot; lable=&quot;说明&quot;&gt;&lt;/option&gt;
+    &lt;option value=&quot;文本&quot; lable=&quot;说明&quot;&gt;&lt;/option&gt;
+    &lt;option value=&quot;文本&quot; lable=&quot;说明&quot;&gt;&lt;/option&gt;
+    &lt;option value=&quot;文本&quot; lable=&quot;说明&quot;&gt;&lt;/option&gt;
+    &lt;option value=&quot;文本&quot; lable=&quot;说明&quot;&gt;&lt;/option&gt;
+&lt;/datalist&gt;
+</code></pre>
+<pre><code class="language-html">&lt;input type=&quot;url&quot; list=&quot;urls&quot;&gt;
+
+&lt;datalist id=&quot;subjects&quot;&gt;
+	&lt;option value=&quot;www.bing.com&quot;&gt;&lt;/option&gt;
+&lt;/datalist&gt;
+</code></pre>
+<h5>output和keygen</h5>
+<p>output用于存放输出的内容，不常用。</p>
+<p>keygen标签元素是秘钥生成器，当提交表单时，会生成两个键，一个是私钥，一个是公钥，实现非对称加密。</p>
+<pre><code class="language-html">&lt;output&gt;&lt;/output&gt;
+&lt;keygen&gt;&lt;/keygen&gt;
+</code></pre>
+<h5>进度条</h5>
+<pre><code class="language-html">&lt;porgress max=&quot;100&quot; value=&quot;50&quot;&gt;&lt;/porgress&gt;
+&lt;meter max=&quot;100&quot; min=&quot;0&quot; high=&quot;80&quot; low=&quot;40&quot; value=&quot;50&quot;&gt;&lt;/meter&gt;
+</code></pre>
+<h5>base</h5>
+<pre><code class="language-html">&lt;base href=&quot;http://cn.bing.com?q=&quot; target=&quot;_blank&quot;&gt;
+</code></pre>
+<p>设置本页面基于的位置，<code>a</code>元素若没有协议头，则在此链接后跳转（可不经过后端自定义浏览器主页）</p>
+<h5>map</h5>
+<p><code>map</code>标签定义一个客户端图像映射，<code>area</code>元素永远在<code>map</code>内，用于定义图像映射中的区域</p>
+<p><code>&lt;map mapname=&quot;name&quot;&gt;&lt;/map&gt;</code>定义一个<code>map</code>，一个<code>map</code>可以定义多个<code>area</code>表示不同的区域</p>
+<p><code>area</code>标签属性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">alt</td>
+<td style="text-align:center">text</td>
+<td style="text-align:center">定义此区域的替换文本</td>
+</tr>
+<tr>
+<td style="text-align:center">coords</td>
+<td style="text-align:center">coordinates</td>
+<td style="text-align:center">定义可点击区域的坐标</td>
+</tr>
+<tr>
+<td style="text-align:center">download</td>
+<td style="text-align:center">filename</td>
+<td style="text-align:center">把超链接用于下载一个资源</td>
+</tr>
+<tr>
+<td style="text-align:center">href</td>
+<td style="text-align:center">URL</td>
+<td style="text-align:center">定义此区域的URL</td>
+</tr>
+<tr>
+<td style="text-align:center">hreflang</td>
+<td style="text-align:center">language_code</td>
+<td style="text-align:center">连接的资源使用的语言</td>
+</tr>
+<tr>
+<td style="text-align:center">media</td>
+<td style="text-align:center">media query</td>
+<td style="text-align:center">链接资源的媒体提示</td>
+</tr>
+<tr>
+<td style="text-align:center">rel</td>
+<td style="text-align:center">alternamete,author,bookmark,help,license,next,nofollow,noreferrer,prefetch,prev,search,tag</td>
+<td style="text-align:center">目标对象与链接对象的关系</td>
+</tr>
+<tr>
+<td style="text-align:center">shape</td>
+<td style="text-align:center">default,rect,circ,poly</td>
+<td style="text-align:center">定义区域的形状</td>
+</tr>
+<tr>
+<td style="text-align:center">target</td>
+<td style="text-align:center">_blank,_parent,_self,_top</td>
+<td style="text-align:center">规定在何处打开URL</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center">media_type</td>
+<td style="text-align:center">用于链接目标的MIME类型的媒体类型</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;img src=&quot;pic.jpeg&quot; alt=&quot;你的浏览器不支持img标签&quot; usemap=&quot;#name&quot;&gt;引用map，但是必须有#
+</code></pre>
+<h5>其它</h5>
+<pre><code class="language-html">&lt;var&gt;变量&lt;/var&gt;
+&lt;kbd&gt;画框圈重点&lt;/kbd&gt;
+&lt;samp&gt;语义标签&lt;/samp&gt;
+&lt;blockquote&gt;整段缩进（引用）&lt;/blockquote&gt;
+&lt;cite&gt;新重点标签&lt;/cite&gt;
+&lt;abbr title=&quot;文字&quot;&gt;鼠标指向显示文字&lt;/abbr&gt;
+&lt;dfn&gt;新重点标签&lt;/dfn&gt;
+&lt;ruby&gt;注音&lt;rp&gt;(&lt;/rp&gt;&lt;rt&gt;zhuyin&lt;/rt&gt;&lt;rp&gt;)&lt;/rp&gt;&lt;/ruby&gt;
+&lt;section&gt;段落，可嵌套，会随着变化字体大小&lt;/section&gt;
+&lt;details open&gt;
+    &lt;summary&gt;展开前显示标题&lt;/summary&gt;
+    展开时显示内容，open参数表示默认打开
+&lt;/details&gt;
+&lt;picture&gt;不同屏幕宽度下显示不同图片
+    &lt;source media=&quot;(min-width: 1024px)&quot; srcset=&quot;大图片.jpg&quot;&gt;可以定义很多这种标签
+    &lt;img&gt;对应默认显示的图片
+&lt;/picture&gt;
+&lt;figure&gt;插入图片时底部的标注&lt;/figure&gt;
+</code></pre>
+<h3>网页缓存</h3>
+<h5>网页缓存概念</h5>
+<p>网页中的一些资源每次都需要访问服务器，但是这样会导致服务器过载，所以HTML新推出了网页缓存，以减缓服务器压力</p>
+<h5>网页缓存文件</h5>
+<p>后缀名是<code>.appcache</code>且读取格式为<code>text/cache-manifest</code>的文本文件</p>
+<p>文件内编写格式</p>
+<pre><code class="language-cache-manifest">CACHE MANIFEST
+#上面一句必须在文档第一行，井号后注释
+
+CACHE:
+#需要缓存的文件列表
+index.css
+index.js
+index-img-01.jpg
+index-img-02.jpg
+index-img-03.jpg
+index-img-04.jpg
+index-img-05.jpg
+index-img-06.jpg
+
+NETWORK:
+#每次都需要联网获取的文件列表
+../images/13.jpg
+
+FALLBACK:
+#如果前面的文件无法被获取则用后面的代替
+../images/14.jpg ../Cilents_Error/404.jpg
+</code></pre>
+<h5>引入缓存文件</h5>
+<pre><code class="language-html">&lt;html manifest=&quot;demo.appcache&quot;&gt;
+</code></pre>
+<h3>meta</h3>
+<pre><code class="language-html">&lt;meta charset=&quot;utf-8&quot; name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;&gt;
+</code></pre>
+<p>防止用户缩放网页引起内容变化，确保移动端和PC端字的大小一样</p>
+<pre><code class="language-html">&lt;meta name=&quot;description&quot; content=&quot;网站短文介绍&quot;&gt;
+</code></pre>
+<p>在百度等搜索引擎搜索时显示的站外基本站点介绍</p>
+<pre><code class="language-html">&lt;meta name=&quot;keywords&quot; content=&quot;关键词&quot;&gt;
+</code></pre>
+<p>设置搜索引擎搜索时可搜索到本站的关键词</p>
+<pre><code class="language-html">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; http://cn.bing.com&quot;&gt;
+</code></pre>
+<p>设置0秒后跳转至必应网站</p>
+<pre><code class="language-html">&lt;meta name=&quot;author&quot; content=&quot;作者&quot;&gt;
+</code></pre>
+<p>设置作者信息，搜索引擎可能可用</p>
+<h3>link</h3>
+<p>link元素定义了6个属性，其中<code>rel</code>值是必须的，它说明了当前文档与被链接资源之间的关系</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">href</td>
+<td style="text-align:center">URL</td>
+<td style="text-align:center">指定被链接资源的URL</td>
+</tr>
+<tr>
+<td style="text-align:center">hreflang</td>
+<td style="text-align:center">language_code</td>
+<td style="text-align:center">指定被链接资源使用的语言</td>
+</tr>
+<tr>
+<td style="text-align:center">sizes</td>
+<td style="text-align:center">HeightxWidth</td>
+<td style="text-align:center">指定图标的大小，比如<code>sizes=&quot;16x16&quot;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">media</td>
+<td style="text-align:center">media_query</td>
+<td style="text-align:center">指定被链接的资源被显示到什么设备上</td>
+</tr>
+<tr>
+<td style="text-align:center">rel</td>
+<td style="text-align:center">altermate,author,help,icon,license,next,pingback,prefetch,prev,search,sidebar,stylesheet,tag</td>
+<td style="text-align:center">指定当前文档与被链接资源的关系</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center">MIME_type</td>
+<td style="text-align:center">规定被链接文档的MIME类型</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>rel</code>表的值可选为下表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">altermate</td>
+<td style="text-align:center">链接到当前文档的替代版本（比如另一种语言的版本）</td>
+</tr>
+<tr>
+<td style="text-align:center">author</td>
+<td style="text-align:center">链接到当前文档的作者</td>
+</tr>
+<tr>
+<td style="text-align:center">help</td>
+<td style="text-align:center">链接到当前文档的帮助文档</td>
+</tr>
+<tr>
+<td style="text-align:center">icon</td>
+<td style="text-align:center">当前文档的图标资源</td>
+</tr>
+<tr>
+<td style="text-align:center">license</td>
+<td style="text-align:center">链接到当前文档的版权信息</td>
+</tr>
+<tr>
+<td style="text-align:center">next</td>
+<td style="text-align:center">当前文档是集合的一部分，且链接的文档是集合中的下一个文档</td>
+</tr>
+<tr>
+<td style="text-align:center">prefetch</td>
+<td style="text-align:center">预先获取的资源（先进性缓存）</td>
+</tr>
+<tr>
+<td style="text-align:center">prev</td>
+<td style="text-align:center">当前文档是集合的一部分，且链接的文档是集合中的上一个文档</td>
+</tr>
+<tr>
+<td style="text-align:center">search</td>
+<td style="text-align:center">针对当前文档的搜索工具</td>
+</tr>
+<tr>
+<td style="text-align:center">stylesheet</td>
+<td style="text-align:center">载入CSS</td>
+</tr>
+</tbody>
+</table>
+<h3>SVG</h3>
+<p>基础元素</p>
+<pre><code class="language-html">&lt;svg width=&quot;400&quot; height=&quot;400&quot; viewBox=&quot;0 0 400 400&quot;&gt;&lt;!-- viewBox是视口大小，相当于长宽比  真正的长宽可以不设置，等于HTML元素大小 --&gt;
+    &lt;rect x=&quot;50&quot; y=&quot;50&quot; width=&quot;250&quot; height=&quot;250&quot; class=&quot;rect&quot; fill=&quot;red&quot;&gt;矩形&lt;/rect&gt;
+    &lt;image xlink:href=&quot;path/to/image.jpg&quot; width=&quot;50&quot; height=&quot;50&quot; /&gt;图片，可以是SVG图片
+    &lt;text x=&quot;25&quot; y=&quot;20&quot;&gt;文字&lt;/text&gt;
+    &lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;20&quot; /&gt;圆
+    &lt;polygon fill=&quot;green&quot; stroke=&quot;orange&quot; stroke-width=&quot;1&quot; points=&quot;0,0 100,0 100,100 0,100 0,0&quot;&gt;折线&lt;/polygon&gt;
+    &lt;line x1=&quot;50&quot; y1=&quot;50&quot; x2=&quot;350&quot; y2=&quot;350&quot;&gt;线&lt;/line&gt;
+&lt;/svg&gt;
+</code></pre>
+<p>动画</p>
+<pre><code class="language-html">    &lt;animate attributeName=&quot;x&quot; from=&quot;0&quot; to=&quot;500&quot; dur=&quot;2s&quot; repeatCount=&quot;indefinite&quot; /&gt;父元素动画
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">attributeName</td>
+<td style="text-align:center">发生动画效果的属性名</td>
+</tr>
+<tr>
+<td style="text-align:center">from</td>
+<td style="text-align:center">单词动画的初始值</td>
+</tr>
+<tr>
+<td style="text-align:center">to</td>
+<td style="text-align:center">结束</td>
+</tr>
+<tr>
+<td style="text-align:center">dur</td>
+<td style="text-align:center">持续时间</td>
+</tr>
+<tr>
+<td style="text-align:center">repeatCount</td>
+<td style="text-align:center">循环模式</td>
+</tr>
+</tbody>
+</table>
+<p>可以定义很多个动画标签，若需要变形，使用<code>&lt;animateTransform&gt;</code>标签</p>
+<p>合成组 &amp;&amp; 不显示合成</p>
+<pre><code class="language-html">&lt;svg width=&quot;300&quot; height=&quot;300&quot;&gt;
+	&lt;g id=&quot;g&quot;&gt;
+        &lt;text x=&quot;25&quot; y=&quot;20&quot;&gt;圆形&lt;/text&gt;
+        &lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;20&quot; /&gt;
+    &lt;/g&gt;
+    &lt;use href=&quot;#g&quot; x=&quot;100&quot; y=&quot;0&quot; fill=&quot;red&quot; stroke=&quot;green&quot;&gt;使用图形组&lt;/use&gt;
+    &lt;defs&gt;不显示组合，可以正常引用
+        &lt;g id=&quot;g&quot;&gt;
+        	&lt;text x=&quot;25&quot; y=&quot;20&quot;&gt;圆形&lt;/text&gt;
+        	&lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;20&quot; /&gt;
+    	&lt;/g&gt;
+    &lt;/defs&gt;
+&lt;/svg&gt;
+</code></pre>
+<p>自定义图形</p>
+<pre><code class="language-html">&lt;path d=&quot;M 0,0 L 100,200 ...&quot;&gt;&lt;/path&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">M x,y</td>
+<td style="text-align:center">移动到</td>
+</tr>
+<tr>
+<td style="text-align:center">L x,y</td>
+<td style="text-align:center">画直线到</td>
+</tr>
+<tr>
+<td style="text-align:center">H x</td>
+<td style="text-align:center">水平画直线到X</td>
+</tr>
+<tr>
+<td style="text-align:center">V y</td>
+<td style="text-align:center">垂直画直线到Y</td>
+</tr>
+<tr>
+<td style="text-align:center">A rx ry 顺时针角度 1大弧0小弧 1顺时针0逆时针 终点x 终点y</td>
+<td style="text-align:center">画一段到x,y的椭圆弧，x,y轴半径分别为rx,ry，相对于x旋转xrr度，maxrr等于1或者0代表弧线大于或小于180度，rry等于0或1代表弧线按照逆时针或顺时针旋转。</td>
+</tr>
+<tr>
+<td style="text-align:center">Z</td>
+<td style="text-align:center">闭合路径</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SVG元素均支持CSS，属性不同</strong></p>
+<h3>少量其他属性</h3>
+<ul>
+<li>contenteditable=&quot;true&quot;   设置元素可以被非技术手段编辑</li>
+</ul>
