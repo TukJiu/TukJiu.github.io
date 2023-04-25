@@ -1,0 +1,136 @@
+<link href="http://github.com/yrgoldteeth/darkdowncss/raw/master/darkdown.css" rel="stylesheet"></link> 
+<h2>mongoDB</h2>
+<pre><code class="language-sql"># 该命令链接
+mongo
+# 该命令退出
+exit
+</code></pre>
+<pre><code class="language-sql">show dbs             查看所有的数据库
+db                   查看当前的数据库
+use db_name			 使用某数据库
+</code></pre>
+<h2>nodejs接入</h2>
+<p><code>npm install -g mongodb</code>安装依赖</p>
+<p>官方文档：</p>
+<pre><code class="language-js">var mongoose = require(&quot;mongoose&quot;)
+mongoose.connect('mongodb://localhost/dbs', { useMongoClient: true } )
+mongoose.Promise = global.Promise
+
+var Cat = mongoose.model('Cat', { name: String } )
+
+var kitty = new Cat({ name: 'Zildjian' })
+Kitty.save((err,ret)=&gt;{
+    err?
+        console.log(err):
+    console.log(&quot;ok&quot;)
+})
+</code></pre>
+<p>解释：</p>
+<pre><code class="language-javascript">const mongoose = require(&quot;mongoose&quot;)
+
+//链接数据库
+mongoose.connect('mongodb://localhost/dbs', { useMongoClient: true } )
+mongoose.Promise = global.Promise
+
+//设计数据表 - mongodb底层不限制
+const Cat = mongoose.model('Cat', { name: String } )
+
+//整只猫保存
+let kitty = new Cat({ name: 'Zildjian' })
+Kitty.save((err,ret)=&gt;{
+    err?
+        console.log(err):
+    console.log(&quot;ok&quot;)
+})
+</code></pre>
+<p><code>db.db_name.find()</code>查询数据库</p>
+<p>建立数据表</p>
+<pre><code class="language-javascript">const mongoose = require(&quot;mongoose&quot;)
+
+mongoose.connect('mongodb://localhost/i') //当插入第一条数据时创建
+
+//设计表和约束
+let 表 = new Schema({
+    title: String,
+    author: String,
+    body: String,
+    conmments: [
+        {
+            body: String,
+            date: Date
+        }
+    ],
+    date: {
+        type: Date,
+        default: Date.now
+        required: true //必填
+    },
+    hidden: Boolean,
+    meta: {
+        botes: Number,
+        favs: Number
+    }
+})
+
+let User = mongoose.model('User', 表) //设计生效 - User表    在数据库中是users
+
+//为所欲为（并不）
+let 人 = new User(...)
+人.save(...)
+</code></pre>
+<h3>增删改查</h3>
+<p>增如上，查：</p>
+<pre><code class="language-javascript">User.find({
+    name: '张三'
+},(err,ret)=&gt;{
+    if(err){
+        console.log(&quot;失败&quot;)
+    }else{
+        console.log(ret)
+    }
+})
+</code></pre>
+<p>删：</p>
+<pre><code class="language-javascript">User.remove({
+    name: '张三'
+},(err,ret)=&gt;[
+    err?console.log(&quot;失败&quot;):coonsole.log(&quot;成功&quot;)
+])
+</code></pre>
+<p>改：</p>
+<p>根据id更新</p>
+<pre><code class="language-javascript">User.findByIdAndUpdate('查出来的默认id', {
+    passwd: '114514'
+},(err,ret)=&gt;{
+    err?c('失败'):c('成功')
+})
+</code></pre>
+<p>根据条件更新：</p>
+<pre><code class="language-javascript">Model.findOneAndUpdate([条件], [更新], [选项], [回调])
+</code></pre>
+<p>全部更新：</p>
+<pre><code class="language-javascript">Model.update(条件, 更新, [选项], [回调])
+</code></pre>
+<h2>mysql对比</h2>
+<pre><code class="language-javascript">const mysql = require('mysql') //创死他 买瑟口 等于 瑞块儿 买瑟口
+
+//买个冰箱
+let con = mysql.createConnection({
+    host: 'localhost',
+    user: 'z3',
+    password: 'z3',
+    datebase: 'dbs'
+})
+
+//打开冰箱门
+con.connect()
+
+//把大象放进冰箱
+con.query('SELECT 1 + 1 AS solution', (err,res,fie)=&gt;{
+    err?throw error;
+    console.log(res[0].solution)
+})
+
+//关闭冰箱门
+con.end()
+</code></pre>

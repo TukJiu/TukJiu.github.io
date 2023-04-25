@@ -1,0 +1,1060 @@
+<link href="http://github.com/yrgoldteeth/darkdowncss/raw/master/darkdown.css" rel="stylesheet"></link> 
+<h2>引入</h2>
+<pre><code class="language-css">@import url(&quot;css.css&quot;)
+</code></pre>
+<p>css内部引入头文件</p>
+<h2>媒体查询/小细节</h2>
+<pre><code class="language-css">*{
+    -webkit-tap-highlight-color:transparent; /*去除移动端点击背景*/
+    xxx   ! important; /*最高优先级*/
+    -webkit-appearance:none; /*去除ios默认样式*/
+    -webkit-touch-callout: none;/*禁止使用弹出菜单*/
+    box-sizing: border-box; /*不用考虑外边距*/
+}
+</code></pre>
+<p>在实战中，图片应该使用二倍图，可放大，可速度平衡</p>
+<pre><code class="language-html">&lt;meta charset=&quot;utf-8&quot; name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;&gt;
+</code></pre>
+<p>防止用户缩放网页引起内容变化，确保移动端和PC端字的大小一样</p>
+<pre><code class="language-html">&lt;link href=&quot;1.css&quot; media=&quot;screen&quot;&gt;屏幕设备
+&lt;link href=&quot;1.css&quot; media=&quot;print&quot;&gt;打印机
+&lt;link href=&quot;1.css&quot; media=&quot;all&quot;&gt;所有设备
+&lt;style media=&quot;如上&quot;&gt;
+    @import url(&quot;1.css&quot;) print; /*引入时限制*/
+    @media screen {}   /*便携时限制*/
+    @media only screen{} /*仅高版本可用*/
+    @media not screen{} /*除了屏幕设备外都可用*/
+&lt;/style&gt;
+</code></pre>
+<pre><code class="language-css">@media screen and (orientation: landscape){}/*屏幕设备并且
+portrait：指定输出设备中的页面可见区域高度大于或等于宽度
+landscape：除portrait值情况外，都是landscape*/
+/*
+	max-width	最大宽度
+	min-width	最小宽度
+	and			和 关键字
+	,			或 关键字
+*/
+</code></pre>
+<pre><code class="language-css">outline: 2px #3498db solid; /*不算在触发区内的外边框*/
+
+text-stroke: 2px #555;/*会场景复杂且文字不突出场景的增加白色描边*/
+text-stroke: 2px #555;
+
+object-fit: cover; /*图片等比例缩放*/
+
+display: list-item;/*类似列表的显示方式*/
+list-style-type: circle;
+
+text-indent: 1em;/*缩进*/
+
+word-break: break-word;/*文字强制换行*/
+
+letter-spacing: .25em;/*增加文字间间距*/
+
+writing-mode: vertical-lr;/*文字对其方式*/
+writing-mode: vertical-rl;
+
+text-transform: capitalize; /*首字母大写
+lowercase  全部小写
+uppercase  全部大写
+*/
+
+user-select: none;/*防止用户选中*/
+
+pointer-events: none;/*元素不触发事件*/
+
+visibility: hidden;/*元素不可见*/
+
+scroll-margin-top: 2em;/*元素跳转时上部保留空行*/
+
+scroll-behavior: smooth;/*使用a标签跳转元素时滚动条将会更平滑*/
+</code></pre>
+<p>以上框：不常用属性</p>
+<h2>颜色选择器</h2>
+<p>RGB即为RED、GREEN、BLUE</p>
+<p>HSB即色相（H）、饱和度（S）、明度（B）</p>
+<h2>元素选择器</h2>
+<h3>子元素选择器</h3>
+<pre><code class="language-css">form &gt; fieIdset &gt; meter,
+form &gt; fieIdset &gt; input{
+    /*内容*/
+}
+</code></pre>
+<p>会选中form中的fieIdset中的meter和input</p>
+<h3>元素位置选择器</h3>
+<pre><code class="language-css">E:nth-last-child(n){
+    /**/
+}
+</code></pre>
+<p>倒数所有元素</p>
+<pre><code class="language-css">E:nth-child(n){
+    /**/
+}
+</code></pre>
+<p>正数所有元素</p>
+<pre><code class="language-css">li:nth-of-type(odd){
+    /*奇数*/
+}
+li:nth-of-type(even){
+    /*偶数*/
+}
+</code></pre>
+<p>奇数和偶数个数的参数选择器，一般用于棋盘等</p>
+<pre><code class="language-css">li:nth-last-of-type(-n+5){
+    /*选择最后4个*/
+}
+li:nth-of-type(-n+5){
+    /*选择前4个*/
+}
+</code></pre>
+<p><code>n</code>：默认取值范围是 0-无限 个子元素个数，但当n&lt;=0时，该次数的选择器无效。所以可以对n进行运算以选中元素</p>
+<blockquote>
+<p>-n+5</p>
+<p>0&gt;&gt;5</p>
+<p>1&gt;&gt;4</p>
+<p>...</p>
+<p>4&gt;&gt;1</p>
+<p>5&gt;&gt;0</p>
+</blockquote>
+<pre><code class="language-css">E:target{
+    /**/
+}
+</code></pre>
+<p>当当前元素作为描点且被跳转时激活</p>
+<h4>nth-child与nth-of-type的区别</h4>
+<p><code>nth-child</code>会先选中前面第n个元素，然后符合E的被修饰。</p>
+<p><code>nth-of-type</code>会先挑选E元素，然后第n个E元素被修饰。</p>
+<h3>伪类选择器</h3>
+<pre><code class="language-css">li::before{
+    content: &quot;&quot;;
+    position: absolute;
+    /*参数*/
+}
+li::after{
+    content: &quot;&quot;;
+    position: absolute;
+    /*参数*/
+}
+</code></pre>
+<p>伪元素选择器(凭空生成一个元素)</p>
+<pre><code class="language-css">li:empty{
+    /*参数*/
+}
+</code></pre>
+<p>只会选中空的li标签，并且进行修饰</p>
+<pre><code class="language-css">E::first-letter{
+    /*参数*/
+}
+</code></pre>
+<p>选中第一个字母或字，但不是词组</p>
+<pre><code class="language-css">E::first-line{
+    /*参数*/
+}
+</code></pre>
+<p>文本的第一行</p>
+<pre><code class="language-css">E::selection{
+    /*参数*/
+}
+</code></pre>
+<p>可以改变被选中时文本的样式</p>
+<pre><code class="language-css">:root{}
+</code></pre>
+<p>选中<code>html</code>标签下的元素</p>
+<h3>属性选择器</h3>
+<pre><code class="language-css">div[class]{
+    /**/
+}
+</code></pre>
+<p>表示存在<code>class</code>即可</p>
+<pre><code class="language-css">div[class=m]{
+    /**/
+}
+</code></pre>
+<p>值必须完全相等</p>
+<pre><code class="language-css">div[class*=m]{
+    /**/
+}
+</code></pre>
+<p>只要包含<code>m</code>就可以</p>
+<pre><code class="language-css">div[class^=m]{
+    /**/
+}
+</code></pre>
+<p>开头必须有<code>m</code></p>
+<h3>同级标签选择器</h3>
+<pre><code class="language-css">a:hover~li{
+    /*参数*/
+}
+</code></pre>
+<p>当a元素被鼠标指向时触发li标签的样式变化，也可以正常使用。</p>
+<pre><code class="language-css">a:link{/*a标签有链接指向时*/
+    /*参数*/
+}
+a:visited{/*被访问过后*/
+    /*参数*/
+}
+a:hover{/*被鼠标指向*/
+    /*参数*/
+}
+a:active{/*被鼠标点击*/
+    /*参数*/
+}
+</code></pre>
+<p>触发事件时自己的变化</p>
+<h2>背景图片</h2>
+<h3>一句话</h3>
+<pre><code class="language-css">background: color url(&quot;bg.jpg&quot;) no-repeat fixed center / cover;
+</code></pre>
+<h3>背景图片的填充方式</h3>
+<pre><code class="language-css">background-size: contain;
+</code></pre>
+<p>图片大于容器，有可能造成空白区域，会将图片放小</p>
+<p>图片小于容器，有可能造成空白区域，会将图片放大</p>
+<pre><code class="language-css">background-size: cover;
+</code></pre>
+<p>图片大于容器，等比例缩小，可能造成图片部分内容不可见</p>
+<p>图片小于容器，等比例放大，可能造成图片部分内容溢出</p>
+<pre><code class="language-css">background-image: url(&quot;../images/sprites.png&quot;);
+background-position: -20px 0;
+</code></pre>
+<p>设置背景坐标的<strong>偏移</strong></p>
+<pre><code class="language-css">background-origin: content-box;
+</code></pre>
+<p>设置背景坐标的原点</p>
+<p><code>border-box</code>： 从border的位置开始填充背景，与border重叠</p>
+<p><code>padding-box</code>：从padding的位置开始填充背景，与padding重叠</p>
+<p><code>content-box</code>：从内容的位置开始填充背景</p>
+<pre><code class="language-css">background-clip: content-box;
+</code></pre>
+<p>裁剪背景图片</p>
+<p><code>border-box</code>：显示border以及内部内容</p>
+<p><code>padding-box</code>：现实padding以及内部内容</p>
+<p><code>content-box</code>：现实content内部内容</p>
+<pre><code class="language-css">background-size: auto;
+</code></pre>
+<p>设置背景图片大小，推荐将图片尽量缩小展示</p>
+<p><code>auto</code>：原始图片大小</p>
+<p><code>number</code>：通过数值设置图片的大小</p>
+<p><code>percentage</code>：通过百分比设置大小</p>
+<p><code>cover</code>：放大方式铺满</p>
+<p><code>contain</code>：缩小方式铺满</p>
+<pre><code class="language-css">background-attachment: fixed;
+</code></pre>
+<p>设置在滚动容器的背景的行为，跟随或固定</p>
+<p><code>fixed</code>代表背景图片位置不会变化，<code>scroll</code>代表背景图片跟随滚动轴移动，<code>local</code>代表背景图片跟随内容移动</p>
+<h2>边框设置</h2>
+<h3>边框圆角</h3>
+<pre><code class="language-css">border-radius: 10px 2px 3px 5px;
+</code></pre>
+<p>可以分别设置四个角的圆角，如果只有两个参数，则设置两个对角。</p>
+<p>一般情况下，可以只有一个参数负责设置四个角</p>
+<h3>边框重复</h3>
+<pre><code class="language-css">border-image-repeat: round;
+</code></pre>
+<p><code>repeat</code>直接平铺，<code>round</code>缩放且显示完整</p>
+<h3>其他</h3>
+<p><code>border-image-source: url(&quot;image.jpg&quot;)</code>：指定图片边距的路径，默认填充到四个角点</p>
+<p><code>border-image-slice: 27 fill</code>：设置四个角上的裁切图片的距离，fill属性可以使内容也正常填充</p>
+<p><code>border-image-width: 27px</code>：边框图片显示（可见）的宽度</p>
+<p><code>border-image-outset: 0px</code>：向外扩展边框</p>
+<h2>元素阴影</h2>
+<p>一个元素可以设置多个阴影，不同于文字阴影（text-shadow)，元素阴影可以修饰大部分元素</p>
+<h3>内阴影</h3>
+<pre><code class="language-css">e{
+    box-shadow: 3px 3px 3px #ccc inset;
+}
+</code></pre>
+<h3>外阴影</h3>
+<pre><code class="language-css">e{
+    box-shadow: 3px 3px 3px #000;
+}
+</code></pre>
+<h3>文字/边框/元素 阴影格式和对比</h3>
+<pre><code class="language-css">text-shadow: offsetX offsetY blur color;
+box-shadow: h v blur spread color inset;
+</code></pre>
+<h2>伪元素</h2>
+<p>伪元素特点：必须添加content样式，否则后期不可见。默认是行级元素，如果想设置宽高，需要转换成块级元素。</p>
+<h3>befor/after</h3>
+<p>before和after是语义伪元素。</p>
+<pre><code class="language-css">E:before{
+    content: &quot;&quot;;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+</code></pre>
+<pre><code class="language-css">E:after{
+    content: &quot;&quot;;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+</code></pre>
+<h2>渐变</h2>
+<p>产生渐变，也是产生图像，可以省去服务器的上传流量。</p>
+<pre><code class="language-css">background: radial-gradient(red,blue);
+background: radial-gradient(形状 大小 坐标,颜色1,颜色2,...);
+</code></pre>
+<p>径向渐变</p>
+<p>形状：</p>
+<ul>
+<li>circle：产生正方形的渐变色</li>
+<li>ellipse：适配当前形状</li>
+</ul>
+<p>坐标：默认在正中心，可以赋值坐标</p>
+<ul>
+<li>left：左</li>
+<li>center：中心</li>
+<li>right：右</li>
+<li>top：上</li>
+<li>bottom：下</li>
+</ul>
+<p>可以组合：例如left top</p>
+<p>大小：</p>
+<ul>
+<li>closet-side：最近边</li>
+<li>farthest-side：最远边</li>
+<li>closest-corner：最近角</li>
+<li>farthest-corner：最远角</li>
+</ul>
+<p>设置颜色的位置：</p>
+<p><code>background: radial-gradient(red,red 50%,blue 50%,blue);</code></p>
+<p><strong>线性渐变把<code>radial</code>换成<code>linear</code>即可</strong></p>
+<h2>动画与变换</h2>
+<h3>流程控制</h3>
+<pre><code class="language-css">transition: NAME TIME TIME-FUNCTION TIME-OUT
+</code></pre>
+<p><code>transition-property</code>：(NAME)规定属性的名称</p>
+<p><code>transition-duration</code>：(TIME)规定完成一个动作所需时间</p>
+<p><code>transition-timing-function</code>：(TIME-FUNCTION)细节规划/时间曲线</p>
+<p><code>transition-delay</code>：(TIME-OUT)延时执行</p>
+<h4>时间曲线</h4>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>linear</td>
+<td>线性速度</td>
+</tr>
+<tr>
+<td>ease</td>
+<td>缓出缓入</td>
+</tr>
+<tr>
+<td>ease-in</td>
+<td>缓入</td>
+</tr>
+<tr>
+<td>ease-out</td>
+<td>缓出</td>
+</tr>
+<tr>
+<td>ease-in-out</td>
+<td>缓入缓出</td>
+</tr>
+<tr>
+<td>cubic-bezier(n,n,n,n)</td>
+<td>自定义值，在0和1之间的数值</td>
+</tr>
+</tbody>
+</table>
+<h3>触发动画</h3>
+<p><code>transition:all 2s steps(4)</code>表示通过4步2在秒内完成所有效果</p>
+<p><code>transition: left 2s linear 0s,background-color: 5s linear 0s;</code>定义两种动画效果</p>
+<h3>变换</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">transform</td>
+<td style="text-align:center">向元素应用 2D 或 3D 转换。</td>
+</tr>
+<tr>
+<td style="text-align:center">transform-origin</td>
+<td style="text-align:center">允许你改变被转换元素的位置。</td>
+</tr>
+<tr>
+<td style="text-align:center">transform-style</td>
+<td style="text-align:center">规定被嵌套元素如何在 3D 空间中显示。</td>
+</tr>
+<tr>
+<td style="text-align:center">perspective</td>
+<td style="text-align:center">规定 3D 元素的透视效果。</td>
+</tr>
+<tr>
+<td style="text-align:center">perspective-origin</td>
+<td style="text-align:center">规定 3D 元素的底部位置。</td>
+</tr>
+<tr>
+<td style="text-align:center">backface-visibility</td>
+<td style="text-align:center">定义元素在不面对屏幕时是否可见。</td>
+</tr>
+</tbody>
+</table>
+<h4>2D</h4>
+<p><code>transform:scale(1,1)</code>：以元素中心为原点缩放元素，可以不传入第二个值</p>
+<p><code>transform:skew(x,y)</code>：元素斜切，可以让元素倾斜显示，不会让元素旋转，只会改变元素的形状</p>
+<p><code>transform:rotate(0)</code>：旋转某个元素，但不会改变元素的形状</p>
+<p><code>transform:translate(x,y)</code>：移动某个元素，可以通过<code>transform-origin</code>设置中心</p>
+<h4>3D</h4>
+<p><code>transform-style: flat;</code>默认值，每个子元素自己变换，设置成<code>preserve-3d</code>可以开启3D空间，每个子元素在这个父元素内做变换</p>
+<p><code>transform: perspective(1px)</code>设置元素距离屏幕的距离，将这个空间进行透视投影</p>
+<p><code>transform: perspective-origin: x y;</code>中心参考点位置</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">matrix3d(<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>, <em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>,<em>n</em>)</td>
+<td style="text-align:center">定义 3D 转换，使用 16 个值的 4x4 矩阵。</td>
+</tr>
+<tr>
+<td style="text-align:center">translate3d(<em>x</em>,<em>y</em>,<em>z</em>)</td>
+<td style="text-align:center">定义 3D 转化。</td>
+</tr>
+<tr>
+<td style="text-align:center">translateX(<em>x</em>)</td>
+<td style="text-align:center">定义 3D 转化，仅使用用于 X 轴的值。</td>
+</tr>
+<tr>
+<td style="text-align:center">translateY(<em>y</em>)</td>
+<td style="text-align:center">定义 3D 转化，仅使用用于 Y 轴的值。</td>
+</tr>
+<tr>
+<td style="text-align:center">translateZ(<em>z</em>)</td>
+<td style="text-align:center">定义 3D 转化，仅使用用于 Z 轴的值。</td>
+</tr>
+<tr>
+<td style="text-align:center">scale3d(<em>x</em>,<em>y</em>,<em>z</em>)</td>
+<td style="text-align:center">定义 3D 缩放转换。</td>
+</tr>
+<tr>
+<td style="text-align:center">scaleX(<em>x</em>)</td>
+<td style="text-align:center">定义 3D 缩放转换，通过给定一个 X 轴的值。</td>
+</tr>
+<tr>
+<td style="text-align:center">scaleY(<em>y</em>)</td>
+<td style="text-align:center">定义 3D 缩放转换，通过给定一个 Y 轴的值。</td>
+</tr>
+<tr>
+<td style="text-align:center">scaleZ(<em>z</em>)</td>
+<td style="text-align:center">定义 3D 缩放转换，通过给定一个 Z 轴的值。</td>
+</tr>
+<tr>
+<td style="text-align:center">rotate3d(<em>x</em>,<em>y</em>,<em>z</em>,<em>angle</em>)</td>
+<td style="text-align:center">定义 3D 旋转。</td>
+</tr>
+<tr>
+<td style="text-align:center">rotateX(<em>angle</em>)</td>
+<td style="text-align:center">定义沿 X 轴的 3D 旋转。</td>
+</tr>
+<tr>
+<td style="text-align:center">rotateY(<em>angle</em>)</td>
+<td style="text-align:center">定义沿 Y 轴的 3D 旋转。</td>
+</tr>
+<tr>
+<td style="text-align:center">rotateZ(<em>angle</em>)</td>
+<td style="text-align:center">定义沿 Z 轴的 3D 旋转。</td>
+</tr>
+<tr>
+<td style="text-align:center">perspective(<em>n</em>)</td>
+<td style="text-align:center">定义 3D 转换元素的透视视图。</td>
+</tr>
+</tbody>
+</table>
+<h3>非触发动画与时间曲线</h3>
+<p>创建动画通过创建时间曲线实现</p>
+<pre><code class="language-css">@keyframes NAME{
+    form{
+        body{
+            background: #FFF;
+        }
+    }
+    to{
+        body{
+            background: #000;
+        }
+    }
+}
+</code></pre>
+<pre><code class="language-css">@keyframes NAME{
+    0%{
+        /*DO SOMETHING*/
+    }
+    100%{
+        /*DO SOMETHING*/
+    }
+}
+</code></pre>
+<p>引用：</p>
+<pre><code class="language-css">animation-name: NAME;/*指定引用的时间曲线*/
+animation-duration: 2s;/*动画在规定的时间内完成*/
+animation-iteration-count: infinite;/*动画的执行次数，默认为一次，当前为无限*/
+animation-direction: alternate;/*设置交替动画，当前为来回交替*/
+animation-delay: 2s;/*动画执行前延迟*/
+animation-fill-mode: both;
+/*
+设置动画结束时状态，默认执行完毕后回归原始状态。
+forwards:  保留动画结束状态，延迟时不初始化。
+backwards: 不保留状态，延迟时初始化。
+both:      保留结束状态，延迟初始化。
+*/
+
+animation-timing-function: linear;/*播放时间曲线调整*/
+animation-play-state: paused;/*动画状态，当前是暂停，running是运行*/
+</code></pre>
+<p>在使用时，根据需求确定应该使用哪种动画。</p>
+<p>可以通过<code>animation</code>在编译器查看一句话函数方法，推荐使用一句话。</p>
+<h2>web字体与字体图标</h2>
+<p>开发人员可以为自己的网页指定特殊的字体，无需考虑用户的计算机是否安装了此字体。它的支持程度比较好，完全抛弃了图片存储特殊图标字体的方式。</p>
+<pre><code class="language-css">@font-face{
+    font-family: 'NAME'; /*设置名称*/
+    src: url('font.eot');/*IE9*/
+    src: url('font.eot?#iefix') format('embedded-opentype'),/*IE6-IE8*/
+    url('font.woff') format('woff'),/*chrome,firefox*/
+    url('font.ttf') format('truetype'),/*chrome,firefox,opera,Safari,Android,IOS 4.2+*/
+    url('font.svg#webfont') format('svg');/*IOS4.1-*/
+}
+
+body{
+    font-family: NAME; /*应用*/
+}
+</code></pre>
+<h3>字体样式</h3>
+<pre><code class="language-css">font-size: 1em;
+</code></pre>
+<p>设置字体大小</p>
+<pre><code class="language-css">font-weight: normal;
+</code></pre>
+<p>字体重量： <code>normal</code>正常、<code>bold</code>加粗、<code>lighter</code>继承并加细、<code>bolder</code>继承并加粗、可以写入数字。</p>
+<pre><code class="language-css">font-style: normal;
+</code></pre>
+<p>字体样式： <code>normal</code>正常、<code>italic</code>斜体、<code>oblique</code>倾斜体。</p>
+<pre><code class="language-css">font-family: ...; //senf, sans-serif, monospace
+</code></pre>
+<p>Fantasy里面主要是那些具有特殊艺术效果的字体。</p>
+<p>Papyrus, Herculanum, Party LET, Curlz MT, Harring, fantasy.</p>
+<p>Times New Roman, Garamond, Georgia.  //笔画两端多∠</p>
+<p>Trebuchet, Arial, Verdana.  //笔画简洁</p>
+<pre><code class="language-css">line-height: 800px;
+</code></pre>
+<p>行高</p>
+<pre><code class="language-css">font: font-style font-weight font-size / line-height font-family;
+</code></pre>
+<p>简写</p>
+<h3>user-select用户选中</h3>
+<pre><code class="language-css">user-select: none;
+user-select: auto;
+user-select: text;
+user-select: contain;
+user-select: all;
+</code></pre>
+<p>分别是： 禁止，自动，无限制（默认），内容，全部</p>
+<h2>多列布局</h2>
+<p>CSS3新出现的多列布局是传统HTML网页中块状布局的扩充。为了适应大屏显示器，要让文字像报纸一样展现在屏幕上，形成高效率的阅读页面。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">column-count</td>
+<td style="text-align:center">设置列的具体个数</td>
+</tr>
+<tr>
+<td style="text-align:center">column-width</td>
+<td style="text-align:center">控制列的宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">column-gap</td>
+<td style="text-align:center">两列之间的间隔</td>
+</tr>
+<tr>
+<td style="text-align:center">column-rule</td>
+<td style="text-align:center">列的宽度、样式、颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">column-span</td>
+<td style="text-align:center">元素应该横跨多少列</td>
+</tr>
+</tbody>
+</table>
+<p>新的单位<code>fr</code>相当于网格布局剩下的空间的等比</p>
+<p><code>repeat(3, 1fr)</code> === <code>1fr 1fr 1fr</code></p>
+<p><code>minmax(min,max)</code>函数规定了最小值和最大值</p>
+<h2>伸缩布局</h2>
+<p>传统的布局基于盒装模型，依赖display和position与float属性。CSS3做了改进，形成伸缩布局。</p>
+<blockquote>
+<p>经过本人测试，该布局对适应大小不同的屏幕有良好效果</p>
+</blockquote>
+<p>通过给父元素写入<code>display: flex;</code>属性实现将子元素变成伸缩项。</p>
+<p><code>justify-content: flex-start;</code>设置主轴方向，可用值有：<code>flex-start</code>，<code>flex-end</code>，<code>center</code>，<code>space-between</code>，<code>space-around</code>。</p>
+<p>使用方法：</p>
+<pre><code class="language-css">.box{
+    box-sizing: boder-box;/*将父元素（当前元素）设置为盒子，子元素自动变成伸缩项*/
+    display: flex;
+    justyfy-content: space-around;/*常用的属性*/
+}
+</code></pre>
+<p>若子元素超标，则会引起换行，以下设置如何换行：</p>
+<pre><code class="language-css">flex-wrap: wrap-reverse;/*翻转*/
+nowrap    收缩不换行
+wrap      换行
+</code></pre>
+<p>调整主轴：</p>
+<pre><code class="language-css">flex-direction: row;/*横向*/
+column              /*竖向*/
+row-reverse         /*翻转横向*/
+column-reverse      /*翻转竖向*/
+</code></pre>
+<p><code>flex-flow</code>相当于<code>flex-wrap</code>和<code>flex-direction</code>的结合</p>
+<p><code>flex</code>最简写用法：</p>
+<p>flex是flex-grow,flex-shrink和flex-basis的简写，默认值为<code>0 1 auto</code>，后两个属性可选。</p>
+<p><code>flex: [flex-grow] [flex-shrink] [flex-basis]</code></p>
+<p><code>flex: 0</code>该项目所占用空间比例</p>
+<p><code>flex: auto</code>占满剩余空间</p>
+<h2>网格布局</h2>
+<p>CSS布局新方案，可以把页面画成一个一个的格子，每个元素占据一个或多个格子，更有利于页面排布。</p>
+<pre><code class="language-css">.grid{ /*对父元素进行设置*/
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /*分3列，且按比例排布（fr比例单位）*/
+    /*grid-template-columns: repeat(4,1fr)； 重复设置*/
+    column-gap: 24px; /*列间距*/
+    row-gap: 24px;/*行间距*/
+    grid-template-areas: /*设置显示区域*/
+        &quot;header header header&quot;
+        &quot;sidebar content content&quot;
+        &quot;footer footer footer&quot;;
+    align-items: center;/*元素在它自己格子中的位置 - 纵向*/
+    jusify-items: space-between; /*元素在它自己格子中的位置 - 横向*/
+}
+/*对子元素进行设置*/
+header{
+    grid-area: header; /*放到header位置*/
+}
+main {
+    grid-area: content;
+}
+aside {
+    grid-area: sidebar;
+}
+footer {
+    grid-area: footer;
+}
+.subgrid{ /*占据第一个到第三个横行的元素*/
+    grid-colunm-start: 1;
+    grid-column-end: 3;
+    /*grid-column: 1 / 3;  简写*/
+}
+.subgrid{ /*占据第一个到第三和竖行的元素*/
+    grid-row-start: 1;
+    grid-row-end: 3;
+    /*grid-row: 1 / -1;  简写，-1代表到结尾*/
+    /*grid-row: 1 / span 2; 占据1+2=3个格子*/
+}
+/*最简： grid-area: 起始行号 / 起始列号 / 结束行号 / 结束列号; */
+</code></pre>
+<h2>CSS嵌套</h2>
+<p>HTML框架</p>
+<pre><code class="language-html">&lt;article&gt;
+	&lt;h1&gt;&lt;/h1&gt;
+    &lt;p&gt;
+        &lt;a&gt;&lt;/a&gt;
+    &lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+<p>CSS嵌套可以使CSS代码更加简洁，提高开发效率和代码可读性。</p>
+<pre><code class="language-css">article.post{
+    &amp; h1{}
+    &amp; p{
+        &amp; a{}
+    }
+}
+</code></pre>
+<p>&amp; 叫做嵌套选择器，只能放在开头，指代当前的父级选择器。</p>
+<p>如果想把这个符号放在其他地方请用@nest：</p>
+<pre><code class="language-css">.someClass{
+    @nest .otherClass &amp; {}
+}
+</code></pre>
+<p>等同于</p>
+<pre><code class="language-css">.someClass .otherClass .someClass{}
+</code></pre>
+<h2>filter滤镜</h2>
+<p>CSS属性将模糊或颜色偏移等图形效果应用于元素。滤镜通常用于调整图像，背景和边框的渲染。</p>
+<pre><code class="language-css">filter: url(&quot;filters.svg#filter-id&quot;);
+</code></pre>
+<p>插入一个SVG元素，并使它覆盖住被修饰的元素，此外，<code>filter</code>还自带一些实用的函数</p>
+<pre><code class="language-css">filter: blur(5px); /*毛玻璃 或 高斯模糊*/
+filter: brightness(0.4); /*线性乘法器   亮度*/
+filter: contrast(200%);/*对比度*/
+filter: drop-shadow(16px 16px 20px blue);/*阴影模糊效果  可带有GPU加速*/
+filter: grayscale(50%);/*灰度*/
+filter: hue-rotate(90deg);/*色相旋转   色相偏转*/
+filter: invert(75%);/*反转  反色*/
+filter: opacity(25%);/*透明度  可带有GPU加速*/
+filter: saturate(30%);/*饱和度*/
+filter: sepia(60%);/*深褐色*/
+</code></pre>
+<p>函数可以通过空格符号分隔进行一次性多函数调用，此种调用方法会覆盖该元素内的所有内容，所以推荐使用<code>backdrop-filter</code>。</p>
+<p><strong><code>backdrop-filter</code></strong> 属性可以让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。 因为它适用于元素<em>背后</em>的所有元素，为了看到效果，必须使元素或其背景至少部分透明。</p>
+<h2>CSS滚动条选择器</h2>
+<p>你可以使用以下伪元素选择器去修改各式浏览器的滚动条样式:</p>
+<ul>
+<li><code>::scrollbar</code> — 整个滚动条.</li>
+<li><code>::scrollbar-button</code> — 滚动条上的按钮 (上下箭头).</li>
+<li><code>::scrollbar-thumb</code> — 滚动条上的滚动滑块.</li>
+<li><code>::scrollbar-track</code> — 滚动条轨道.</li>
+<li><code>::scrollbar-track-piece</code> — 滚动条没有滑块的轨道部分.</li>
+<li><code>::scrollbar-corner</code> — 当同时有垂直滚动条和水平滚动条时交汇的部分.</li>
+<li><code>::resizer</code> — 某些元素的corner部分的部分样式(例:textarea的可拖动按钮).</li>
+</ul>
+<h2>element元素复制函数</h2>
+<pre><code class="language-css">element(id);
+</code></pre>
+<p>CSS 函数 <strong><code>element()</code></strong> 定义了一个从任意的 HTML 元素中生成的图像值。该图像值是实时的，这意味着如果被指定的 HTML 元素被更改，CSS修饰的元素显示的图像值也会被更改。</p>
+<h2>scroll-snap-type</h2>
+<p><strong><code>scroll-snap-type</code></strong> CSS 属性定义在滚动容器中的一个临时点可以粘连式滑动（可以制作经典H5界面）。</p>
+<p>此属性不能用来指定任何精确的动画或者物理运动效果来执行临时点，而是交给用户代理来处理。</p>
+<ul>
+<li>
+<p><code>none</code></p>
+<p>当这个滚动容器的可视的 viewport 是滚动的，它必须忽略临时点。</p>
+</li>
+<li>
+<p><code>x</code></p>
+<p>滚动容器只捕捉其水平轴上的捕捉位置。</p>
+</li>
+<li>
+<p><code>y</code></p>
+<p>滚动容器只捕捉其垂直轴上的捕捉位置。</p>
+</li>
+<li>
+<p><code>block</code></p>
+<p>滚动容器仅捕捉到其块轴上的捕捉位置。</p>
+</li>
+<li>
+<p><code>inline</code></p>
+<p>滚动容器仅捕捉到其内联轴上的捕捉位置。</p>
+</li>
+<li>
+<p><code>both</code></p>
+<p>滚动容器会独立捕捉到其两个轴上的位置（可能会捕捉到每个轴上的不同元素）</p>
+</li>
+<li>
+<p><code>mandatory</code></p>
+<p>如果它当前没有被滚动，这个滚动容器的可视视图将静止在临时点上。意思是当滚动动作结束，如果可能，它会临时在那个点上。如果内容被添加、移动、删除或者重置大小，滚动偏移将被调整为保持静止在临时点上。</p>
+</li>
+<li>
+<p><code>proximity</code></p>
+<p>如果它当前没有被滚动，这个滚动容器的可视视图将基于基于用户代理滚动的参数去到临时点上。如果内容被添加、移动、删除或者重置大小，滚动偏移将被调整为保持静止在临时点上。</p>
+</li>
+</ul>
+<pre><code class="language-css">none | [ x | y | block | inline | both ] [ mandatory | proximity ]?
+</code></pre>
+<h2>clip-path显示路径裁切</h2>
+<pre><code class="language-css">clip-path: none; /*默认*/
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">值</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">none</td>
+<td style="text-align:center">默认的无</td>
+</tr>
+<tr>
+<td style="text-align:center">url()</td>
+<td style="text-align:center">传入一个路径文件的url</td>
+</tr>
+<tr>
+<td style="text-align:center">margin-box</td>
+<td style="text-align:center">选取点</td>
+</tr>
+<tr>
+<td style="text-align:center">border-box</td>
+<td style="text-align:center">选取点</td>
+</tr>
+<tr>
+<td style="text-align:center">padding-box</td>
+<td style="text-align:center">选取点</td>
+</tr>
+<tr>
+<td style="text-align:center">content-box</td>
+<td style="text-align:center">选取点</td>
+</tr>
+<tr>
+<td style="text-align:center">fill-box</td>
+<td style="text-align:center">选取点</td>
+</tr>
+<tr>
+<td style="text-align:center">stroke-box</td>
+<td style="text-align:center">选取点</td>
+</tr>
+<tr>
+<td style="text-align:center">view-box</td>
+<td style="text-align:center">选取点</td>
+</tr>
+<tr>
+<td style="text-align:center">insert(100px 50px)</td>
+<td style="text-align:center">插入切割</td>
+</tr>
+<tr>
+<td style="text-align:center">circle(50px at 0 100px)</td>
+<td style="text-align:center">圆形切割</td>
+</tr>
+<tr>
+<td style="text-align:center">polygon(50% 0, 100%, 50%, 100% 100%, 0% 0%)</td>
+<td style="text-align:center">矩形（自定义）</td>
+</tr>
+<tr>
+<td style="text-align:center">path('M0.5,1 C0.5, 1, 0......')</td>
+<td style="text-align:center">路径</td>
+</tr>
+</tbody>
+</table>
+<h2>图片视频宽高比</h2>
+<pre><code class="language-css">aspect-ratio: 16 / 9; /*16:9*/
+aspect-ratio: 4; /* === 4 / 1 */
+</code></pre>
+<p>对于视频，图片，或元素均适用</p>
+<h2>css自定义属性|变量</h2>
+<pre><code class="language-css">:root {
+    --main-bg-color: brown;
+}
+element {
+    background-color: var(--main-bg-color);
+}
+</code></pre>
+<p>基本使用方法（带有作用域）</p>
+<h2>样式组合</h2>
+<p>css一行文本超出</p>
+<pre><code class="language-css">overflow: hidden;
+text-overflow: cllipsis;
+white-space: nowrap;
+</code></pre>
+<p>多行文本超出</p>
+<pre><code class="language-css">display: -webkit-box;
+webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+overflow: hidden;
+</code></pre>
+<p>IOS滑动优化</p>
+<pre><code class="language-css">overflow: auto;
+-webkit-overflow-scrolling: touch;
+</code></pre>
+<p>三角形角标</p>
+<pre><code class="language-css">div {
+    width: 0;
+    height: 0;
+    border: 5px solid #transparent;
+    border-top-color: red;
+}
+</code></pre>
+<p>元素水平垂直居中</p>
+<pre><code class="language-css">div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+</code></pre>
+<pre><code class="language-css">.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</code></pre>
+<pre><code class="language-css">.ex1 .parent {
+    display: grid;
+    place-items: center;
+}
+</code></pre>
+<p>可以结构的自适应布局</p>
+<pre><code class="language-css">.ex2 .parent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.ex2 .box {
+    flex: 1 1 150px;/*自动扩展*/
+    flex: 0 1 150px;/*最小值*/
+    margin: 5px;
+}
+</code></pre>
+<p>经典sidebar</p>
+<pre><code class="language-css">.ex3 .parent {
+    display: grid;
+    grid-template-columns: minmax(150px, 25%) 1fr;
+}
+</code></pre>
+<p>固定的header和footer</p>
+<pre><code class="language-css">.ex4 .parent {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+</code></pre>
+<p>CSS文字渐变手写特效</p>
+<pre><code class="language-html">&lt;div class=&quot;c&quot;&gt;
+    &lt;!--文字--&gt;
+	&lt;svg width=&quot;500&quot; height=&quot;250&quot; class=&quot;text&quot;&gt;
+        &lt;!--定义渐变--&gt;
+    &lt;defs&gt;
+        &lt;linearGradient id=&quot;geekColor&quot; gradientTransform=&quot;rotate(90)&quot;&gt;
+            &lt;stop offset=&quot;0%&quot; stop-color=&quot;#91bd3a&quot;&gt;
+                &lt;!--定义动画--&gt;
+                &lt;animate attributeName=&quot;stop-color&quot; values=&quot;#91bd3a;#12cad6;#91bd3a&quot; dur=&quot;10s&quot; begin=&quot;3s&quot; repeatCount=&quot;indefinite&quot;&gt;&lt;/animate&gt;
+            &lt;/stop&gt;
+            &lt;stop offset=&quot;100%&quot; stop-color=&quot;#12cad6&quot;&gt;&lt;/stop&gt;
+        &lt;/linearGradient&gt;
+    &lt;/defs&gt;
+    	&lt;text class=&quot;logo_text&quot; x=&quot;100&quot; y=&quot;100&quot;&gt;TEXT&lt;/text&gt;
+	&lt;/svg&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="language-css">.c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.logo_text {
+    font-family: &quot;PingFang SC&quot;;
+    font-size: 96px;
+    fill: none;
+    stroke: url(#geekColor);
+    stroke-width: 1;
+    
+    /*易错点*/
+    stroke-dasharray: 10 800;
+    stroke-dashoffset: 10;
+    
+    animation: 3s linear 0s darwing forwards;
+}
+
+@keyframes drawing {
+    to {
+        stroke-dasharray: 800;
+        stroke-dashoffset: 0;
+    }
+}
+</code></pre>
+<h1>页面设计</h1>
+<p>原子设计的五个层级： <code>原子</code>、<code>分子</code>、<code>组织</code>、<code>模板</code>、<code>页面</code>。</p>
+<p>在人们挑选商品和服务时，只需要7秒钟就可以确定是否感兴趣，而在这短暂的几秒内，色彩的作用占了67%</p>
+<h2>文字排版</h2>
+<ul>
+<li>中文英文之间需要添加空格</li>
+<li>中文和数字之间需要添加空格</li>
+<li>数字和单位之间添加空格</li>
+<li>链接之间简易增加空格</li>
+</ul>
+<h3>字色</h3>
+<ul>
+<li>UI的字体只能使用纯色，不能使用渐变色</li>
+<li>在比较规范的设计过程中，尽量不要使用透明度调节的方式来淡化字体颜色</li>
+</ul>
+<h2>排版</h2>
+<h3>清晰-排版清晰</h3>
+<ul>
+<li>留白设计</li>
+<li>弧度优化</li>
+<li>灰色分割（分割块、分割线）</li>
+<li>投影</li>
+</ul>
+<p>视觉模型：</p>
+<ul>
+<li>尼尔森F型视觉模型</li>
+<li>2006年提出</li>
+<li>人们在第一次观看页面时，视线会呈F形状关注页面</li>
+<li>用户快速扫视时，具体的文字并不重要</li>
+<li>多用小标题、短句引起阅读者注意</li>
+<li>将重要的内容放在最上面</li>
+</ul>
+<h2>黑夜模式</h2>
+<ul>
+<li>避免使用纯黑色和高纯色</li>
+<li>制作两套色板</li>
+<li>规范使用颜色对比</li>
+<li>避免使用阴影</li>
+<li>背景层应该最暗</li>
+<li>文字不建议纯白</li>
+<li>图标形状、按钮状态、分割线</li>
+<li>更注重视觉层级</li>
+</ul>
+<h2>配图</h2>
+<p>优质配图有，有高品质的感觉。</p>
+<p>实际工作中，大量的外国图片并不适用。</p>
+<p>背景干净。</p>
+<p>烘托主题-抠图，展示的位置一致以及视觉比例一致。</p>
+<p>凸显卖点-不要展示全身，要局部。凸显产品细节。</p>
+<p>9:8、1:1、16:9等比例较好。</p>
+<h2>色彩选择</h2>
+<ul>
+<li>主色
+<ul>
+<li>如今的互联网展品中，主色应用选择范围在拾色器区域的右上角，这点和平面设计有很大不同</li>
+<li>原因： 移动端产品要在一个方寸大的空间中争夺用户的注意力，引起用户的兴趣，而低饱和度清淡的色调是无法实现这个目标的</li>
+<li>所以如今主色饱和度越来越极致。</li>
+<li>再加上平面的RGB显示特性，高对比度、高动态范围的特质给用户提供更好的观感</li>
+<li>主色是一个应用最核心的色彩，品牌的象征色</li>
+<li>确定主色的要点在于——你想让用户感受到哪种情绪，然后通过情绪关联一个大致的色彩范围，在进行微调</li>
+</ul>
+</li>
+<li>辅色
+<ul>
+<li>通知、提醒、取消用大红色</li>
+<li>确认、同意用绿色或者蓝色</li>
+<li>收藏、打分、评论用橙黄色</li>
+<li>已经建立了用户心理习惯标准，也是最安全、最简单的辅助色选择方式</li>
+<li>在没有标准色的情况下，需要被突出的文字距离主色调远，否则近</li>
+</ul>
+</li>
+<li>中性色
+<ul>
+<li>中性色，是页面中文字、背景用到的颜色，它们承担起最基本的层次表现、便于阅读的重任</li>
+<li>主色、辅色决定了界面视觉是否出彩，而中性色的应用直接决定了页面能不能正常使用</li>
+</ul>
+</li>
+</ul>
+<h1>性能优化</h1>
+<p>CSS在浏览器中会从右向左匹配，即使是同一个元素也会体现出差异，最右侧为ID的选择器速度要高于类。</p>
+<p>速度排行：</p>
+<ul>
+<li>ID选择器（<code>#id</code>）</li>
+<li>类选择器（<code>.className</code>）</li>
+<li>标签选择器（<code>div</code>）</li>
+<li>相邻选择器（<code>h1+p</code>）</li>
+<li>子选择器（<code>ul&gt;li</code>）</li>
+<li>后代选择器（<code>li a</code>）</li>
+<li>通配符选择器（<code>*</code>）</li>
+<li>属性选择器（<code>a[rel=&quot;external&quot;]</code>）</li>
+<li>伪类选择器（<code>a:hover</code>）</li>
+</ul>
