@@ -1,0 +1,402 @@
+<link href="darkdown.css" rel="stylesheet"></link> 
+<h1>Shell笔记</h1>
+<p>shell是用户与内核交互的翻译官，<strong>所有内容要求顶格写</strong></p>
+<h2>shell注释与指定解释器</h2>
+<pre><code class="language-shell">#!/bin/bash
+#注释
+</code></pre>
+<p>第一行指定解释器为<code>/bin/bash</code>，第二行是注释。</p>
+<p><strong>不可以把注释和命令写在同一行</strong></p>
+<h2>管道符与重定向</h2>
+<pre><code class="language-shell">echo a | grep
+</code></pre>
+<p>管道符：将上一个命令的输出作为下一个命令的输入</p>
+<pre><code class="language-shell">echo abcd &gt; abc.txt
+</code></pre>
+<p>重定向：覆盖写入<code>abc.txt</code></p>
+<pre><code class="language-shell">echo abcdefg &gt;&gt; abc.txt
+</code></pre>
+<p>重定向：追加写入<code>abc.txt</code></p>
+<pre><code class="language-shell">echo &lt; abc.txt
+</code></pre>
+<p>重定向：传入文件内容</p>
+<pre><code class="language-shell">echo &lt;&lt; EOF
+a
+b
+c
+d
+EOF
+</code></pre>
+<p>重定向：传入多个内容，<code>END</code>也可以作为标识符</p>
+<h2>关于命令返回值 | 判断命令是否执行成功</h2>
+<pre><code class="language-shell">echo $?
+</code></pre>
+<p><code>$?</code>是上一条命令的返回值。如果输出0,则代表上一条命令执行成功。如果输出不是0的其他数字，则上一条命令执行失败。</p>
+<h3>自定义返回值</h3>
+<pre><code class="language-shell">exit 0
+</code></pre>
+<p>默认返回值是0,可以自定义执行状态，最大值是255</p>
+<h2>运算</h2>
+<h3>整数运算</h3>
+<pre><code class="language-shell">expr 1 + 1
+</code></pre>
+<p><code>expr</code>运算命令，一定要注意空格</p>
+<pre><code class="language-shell">expr 1 \* 2
+</code></pre>
+<p>由于<code>*</code>在终端中有特殊含义，所以一定要转义</p>
+<pre><code class="language-shell">let a=1+1
+</code></pre>
+<p>通过变量计算</p>
+<h3>小数运算</h3>
+<pre><code class="language-shell">bc
+</code></pre>
+<p>交互式计算器，使用<code>Ctrl+C</code>退出</p>
+<pre><code class="language-shell">scale=2
+</code></pre>
+<p>在计算器内使用：调整计算器的小数点位是<code>2</code>位</p>
+<pre><code class="language-shell">echo &quot;scale=2;141*100/7966&quot;|bc
+</code></pre>
+<p>在shell文件中使用：非交互式计算</p>
+<pre><code class="language-shell">echo &quot;`echo &quot;scale=2;141*100/7966&quot;|bc`%&quot;
+</code></pre>
+<p>嵌套执行</p>
+<h3>简单运算</h3>
+<pre><code class="language-shell">echo $((1+1))
+</code></pre>
+<p>括号一定要两个</p>
+<h2>格式化输出</h2>
+<p>一个程序需要0个或多个输入，1个或多个输出</p>
+<pre><code class="language-shell">echo somestr
+</code></pre>
+<p><code>echo</code>会将字符串输出到默认显示设备（显示器），一般起到提示作用</p>
+<pre><code class="language-shell">echo [-en]str
+</code></pre>
+<p>输出时，不同参数会被以空格分开，且最后会被加入换行</p>
+<p><code>-n</code>参数可以使<code>echo</code>命令不换行输出</p>
+<p><code>-e</code>参数可以使<code>echo</code>命令可以添加以下转义字符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\a</td>
+<td style="text-align:center">发出警告声</td>
+</tr>
+<tr>
+<td style="text-align:center">\b</td>
+<td style="text-align:center">删除前一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\c</td>
+<td style="text-align:center">最后不加换行符</td>
+</tr>
+<tr>
+<td style="text-align:center">\f</td>
+<td style="text-align:center">换行但保留光标位置</td>
+</tr>
+<tr>
+<td style="text-align:center">\r</td>
+<td style="text-align:center">光标移动到行首但不换行</td>
+</tr>
+<tr>
+<td style="text-align:center">\t</td>
+<td style="text-align:center">插入tab</td>
+</tr>
+<tr>
+<td style="text-align:center">\v</td>
+<td style="text-align:center">与\f相同</td>
+</tr>
+<tr>
+<td style="text-align:center">\</td>
+<td style="text-align:center">插入\</td>
+</tr>
+<tr>
+<td style="text-align:center">\nnn</td>
+<td style="text-align:center">八进制所代表的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\n</td>
+<td style="text-align:center">换行</td>
+</tr>
+</tbody>
+</table>
+<p>注意，有些转义字符需要配合<code>-n</code>使用</p>
+<h3>例子 | 倒计时</h3>
+<pre><code class="language-shell">#!/bin/nash
+for time in `seq 9 -1 0`;do
+	echo -n -e &quot;\b$time&quot;
+	sleep 1
+done
+echo 
+</code></pre>
+<h2>带颜色输出</h2>
+<pre><code class="language-shell">echo -e &quot;\033[背景;文字m字符串\033[0m&quot;
+</code></pre>
+<h2>输入 | 交互</h2>
+<pre><code class="language-shell">read -p &quot;passwd: &quot; -t 300 -s -n 80
+</code></pre>
+<p>读取一个字符串，<code>-p</code>打印信息，<code>-t</code>时间限制，<code>-s</code>不回显，<code>-n</code>限制字符串长度</p>
+<pre><code class="language-shell">read acc
+read pw
+</code></pre>
+<p>这样就可以创建出两个可以获取输入内容的变量</p>
+<h2>变量与循环</h2>
+<p>for循环的常规用法</p>
+<pre><code class="language-shell">for var in v1 v2 ......
+	do
+		commands
+done
+</code></pre>
+<p>for循环的C类用法</p>
+<pre><code class="language-shell">for((i=0;i&lt;0;i++))
+	do
+		commands
+done
+</code></pre>
+<p>for循环的多变量用法</p>
+<pre><code class="language-shell">for((a=0,b=9;a&lt;10;a++,b--))
+	do
+		commands
+done
+</code></pre>
+<p>for死循环</p>
+<pre><code class="language-shell">for((;;))
+</code></pre>
+<p>for循环检测主机存活</p>
+<pre><code class="language-shell">for((;;))
+	do
+		ping -c1 $1 &amp;&gt;/dev/null
+		if[$? -eq 0];then
+			echo -e &quot;`date +&quot;%F %H:%M:%S&quot;`: $1 is \033[32m UP \033[0m&quot;
+		else
+			echo -e &quot;`date +&quot;%F %H:%M:%S&quot;`: $1 is \033[31m DOWN \033[0m&quot;
+		fi
+	
+	#节奏控制，生产环境中应一分钟以上
+	sleep 5
+done
+</code></pre>
+<p>支持<code>continue</code>等语句</p>
+<p>while循环</p>
+<pre><code class="language-shell">while [var]
+	do
+		commands
+done
+</code></pre>
+<p>until则与while条件相反，until函数不常用</p>
+<h2>函数的声明与使用</h2>
+<pre><code class="language-shell">a1(){
+#函数内容
+}
+function a2{
+# 函数内容
+}
+</code></pre>
+<pre><code class="language-shell">a1
+a2
+</code></pre>
+<h2>case</h2>
+<pre><code class="language-shell">case $var in 
+1)
+	echo 1
+;;
+*)
+	echo lll
+;;
+esac
+</code></pre>
+<h2>正则表达式</h2>
+<p>匹配a开头，c结尾的字符串。
+正则表达式一般符号只携带一个字符</p>
+<pre><code class="language-shell">egrep &quot;^ac$&quot; file
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特殊字符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>[:alnum:]</code></td>
+<td style="text-align:center">匹配任意字母字符 0-9 a-z A-Z</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:alpha:]</code></td>
+<td style="text-align:center">匹配任意字母，大写或小写</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:digit:]</code></td>
+<td style="text-align:center">数字 0-9</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:graph:]</code></td>
+<td style="text-align:center">非空字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:lower:]</code></td>
+<td style="text-align:center">小写字符 a-z</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:upper:]</code></td>
+<td style="text-align:center">大写字符 A-Z</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:cntrl:]</code></td>
+<td style="text-align:center">控制字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:print:]</code></td>
+<td style="text-align:center">非空字符（包含空格）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:punct:]</code></td>
+<td style="text-align:center">标点符号</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:blank:]</code></td>
+<td style="text-align:center">空格和制表符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:xdigit:]</code></td>
+<td style="text-align:center">16进制数字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:space:]</code></td>
+<td style="text-align:center">所有空白字符</td>
+</tr>
+</tbody>
+</table>
+<p>同样，支持<code>egrep</code>命令</p>
+<blockquote>
+<p>当出现双中括号时，第一个代表中括号中的任意字符，第二个代表中括号中的格式</p>
+</blockquote>
+<h2>shell文件操作</h2>
+<h3>sed</h3>
+<p>sed是linux中提供的外部命令，是一个行/流编辑器。它与文本编辑器有着本质的区别</p>
+<pre><code class="language-shell">sed [options] '{command}{flags}' {filename}
+
+-e script 将文件中指定的命令添加到处理输入时执行的命令中  多条件，一行中要有多个操作
+-f script 将文件中指定的命令添加到处理输入时执行的命令中
+-n 		  抑制自动输出
+-i 		  编辑文件内容
+-i.bak	  修改时同时创建.bak备份文件
+-r 		  使用扩展的正则表达式
+!		  取反（在模式条件后不受shell限制）
+</code></pre>
+<p>sed内部命令：</p>
+<pre><code class="language-shell">a  在匹配后追加
+i  在匹配前追加
+p  打印
+d  删除
+s  查找替换
+c  更改
+y  转换   N D P
+</code></pre>
+<p>flags:</p>
+<pre><code class="language-shell">数字   表示新文本替换的模式
+g:     表示用新文本替换现有文本的全部实例
+p:     表示打印原始内容
+w filename:    把替换的结果写入文件
+</code></pre>
+<p><strong>由于难度有限，此用法省略</strong></p>
+<h3>shell对输出流的处理|awk</h3>
+<p>awk把文件视为记录，通常对数据的处理方式是按照分隔符分割并输出。</p>
+<pre><code class="language-shell">awk [options] [BEGIN]{PROGRAM} [END]{file}
+
+-F fs   指定描绘一行中数据字段的文件分割符 默认为空格
+-f file 指定程序姚读取的文件名
+-v var=value  定义awk程序中使用的变量和默认值
+
+BEGIN: 在开始前执行，可选
+program: 处理数据流的方式，必选
+END:   处理完成后运行，可选
+</code></pre>
+<p>awk对字段（列/片段）的提取</p>
+<pre><code class="language-shell">$0   整行文本
+$1   表示文本中的第一个数据字段
+$2   文本中第二个数据字段
+$N   文本中第n和数据字段
+$NF  文本中最后一个数据字段
+</code></pre>
+<h3>awk玩法</h3>
+<p>定义数组</p>
+<pre><code class="language-shell">[索引]=值
+
+awk 'BEGIN{array[0]=100;array[1]=200;print array[0],array[1]}'
+</code></pre>
+<p>运算</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">赋值运算</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt; &gt;= == &lt; &lt;= !=</td>
+<td style="text-align:center">比较运算</td>
+</tr>
+<tr>
+<td style="text-align:center">+ - * / % ** ++ --</td>
+<td style="text-align:center">数学运算</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;&amp; ||</td>
+<td style="text-align:center">逻辑运算</td>
+</tr>
+<tr>
+<td style="text-align:center">~ !~</td>
+<td style="text-align:center">匹配运算</td>
+</tr>
+</tbody>
+</table>
+<p>环境变量</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">变量</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">FILDWIDTHS</td>
+<td style="text-align:center">以空格分割的数字列表，用空格定义每个数据字段的精确宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">FS</td>
+<td style="text-align:center">输入字符分割符号</td>
+</tr>
+<tr>
+<td style="text-align:center">OFS</td>
+<td style="text-align:center">输出字符分割符号</td>
+</tr>
+<tr>
+<td style="text-align:center">RS</td>
+<td style="text-align:center">输入记录分隔符</td>
+</tr>
+<tr>
+<td style="text-align:center">ORS</td>
+<td style="text-align:center">输出记录分割符</td>
+</tr>
+</tbody>
+</table>
+<h3>awk流程控制</h3>
+<p>这一段经常举栗子，以此类推....</p>
+<p>if</p>
+<pre><code class="language-shell">awk '{if(条件)执行;}'
+</code></pre>
+<p>for</p>
+<pre><code class="language-shell">awk '{sum=0;for (i=1;i&lt;4;i++){sum+=$i}print sum}' num2
+</code></pre>
