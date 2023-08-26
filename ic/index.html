@@ -138,46 +138,47 @@
 		}
 	</style>
 	<script>
-		if(location.href.indexOf("index.html")===-1)location.href.slice(-1)==="/"?location.href+="index.html":location.href+="/index.html"
-        var worker;
-	window.onload = ()=>{
-        worker = new Worker("worker.js")
-        worker.onmessage = (event)=>{
-	    let { text, real, pro } = event.data
-            let p = document.createElement("p")
-            p.innerHTML = text
-            p.className = real
-            document.querySelector("#pro").style.width = pro+"%"
-            document.querySelector("#echo").appendChild(p)
-	    if(text.indexOf(endn)!==-1){
-		document.querySelector("#pro").style.width = "0%"
-		document.querySelector("o").innerText = "可以进行操作"
-		document.querySelector("o").style.color = "lightgreen"
-            }
-        }
-        }
+		if (location.href.indexOf("index.html") === -1) location.href.slice(-1) === "/" ? location.href += "index.html" : location.href += "/index.html"
+		var worker;
+		window.onload = () => {
+			worker = new Worker("worker.js")
+			worker.onmessage = (event) => {
+				let { text, real, pro } = event.data
+				let p = document.createElement("p")
+				p.innerHTML = text
+				p.className = real
+				document.querySelector("#pro").style.width = pro + "%"
+				document.querySelector("#echo").appendChild(p)
+				if (text.indexOf(endn) !== -1) {
+					document.querySelector("#pro").style.width = "0%"
+					document.querySelector("o").innerText = "可以进行操作"
+					document.querySelector("o").style.color = "lightgreen"
+				}
+			}
+			alert("欢迎使用“身份证号批量解析验证”，本页面所有数据均由客户端本地运算，我们承诺不上传、不收集、不使用任何本页面出现的数据内容（包括但不限于：您手动输入的、程序运算输出的）\n本页面欢迎任何正人君子使用，请勿用作违法用途！")
+		}
 		function l(event) {
-            let doc = document.querySelector("#number");
-            doc.value = doc.value.replace(/[^\d\X]/ig,"");
-            let text = doc.value;
-                if (text === "") {
-                    document.querySelector("#echo").innerHTML = "";
-               }else if(text.length%18){
-		    document.querySelector("#echo").innerHTML = "<p class=\"falseNum\">还差"+(18-text.length%18)+"字数达标！</p>";
-               }else{
-		   endn = text.slice(text.length-18,text.length)
-            	   document.querySelector("#echo").innerHTML = ""
-		   worker.postMessage(text)
-		   document.querySelector("o").innerText = "计算中，不要操作！" 
-		   document.querySelector("o").style.color = "orange"
-               }
-        }
+			let doc = document.querySelector("#number");
+			doc.value = doc.value.replace(/[^\d\X]/ig, "");
+			let text = doc.value;
+			if (text === "") {
+				document.querySelector("#echo").innerHTML = "";
+			} else if (text.length % 18) {
+				document.querySelector("#echo").innerHTML = "<p class=\"falseNum\">还差" + (18 - text.length % 18) + "字数达标！</p>";
+			} else {
+				endn = text.slice(text.length - 18, text.length)
+				document.querySelector("#echo").innerHTML = ""
+				worker.postMessage(text)
+				document.querySelector("o").innerText = "计算中，不要操作！"
+				document.querySelector("o").style.color = "orange"
+			}
+		}
 
-function modc(t){
-	document.querySelector("#s").id="ns"
-	t.parentElement.id="s"
-	document.querySelector("#echo").className=t.id
-}
+		function modc(t) {
+			document.querySelector("#s").id = "ns"
+			t.parentElement.id = "s"
+			document.querySelector("#echo").className = t.id
+		}
 	</script>
 </head>
 
@@ -194,10 +195,10 @@ function modc(t){
 		<label><input type="radio" name="mods" id="showFalse" onclick="modc(this)">错误</label>
 	</div>
 	<div id="echo" class="showAll">
-		<p class="trueNum">在数据计算过程中，不要输入内容或删除内容，以免引起异常！</p>
-		<p class="falseNum">输入框背景是进度条，进度条归零视为计算完成！</p>
-		<p class="trueNum">绿色的边框代表正确的身份证号</p>
-		<p class="falseNum">红色的边框代表错误的身份证号</p>
+		<p class="trueNum">在数据运算过程中，请避免输入内容，以防输出双重数据！</p>
+		<p class="falseNum">输入框以背景变化的方式来指示进度，进度条归零视为计算完成！</p>
+		<p class="trueNum">绿色的边框的输出数据代表正确的身份证号</p>
+		<p class="falseNum">红色的边框的输出数据代表错误的身份证号</p>
 	</div>
 </body>
 
