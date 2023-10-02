@@ -1,10 +1,10 @@
-console.log("点击频率排序模块已挂载" + Date())
+console.log("正在加载：点击频率排序" + Date())
 let divs = {}
 document.querySelectorAll("div").forEach((v, k) => {
     divs[v.id] = 0
 })
 Object.assign(divs, JSON.parse(localStorage.getItem("divs")))
-if (localStorage.getItem("onsort")) {
+if (localStorage.getItem("onsort") == 'true') {
     let divr = []
     let ids = 0
     for (i in divs) {
@@ -34,4 +34,4 @@ document.querySelectorAll("a").forEach((v, k) => {
         localStorage.setItem("divs", JSON.stringify(divs))
     }
 })
-console.log("点击频率排序工作完成" + Date())
+console.log("已加载：点击频率排序" + Date())
