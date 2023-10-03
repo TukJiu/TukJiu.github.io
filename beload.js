@@ -4,10 +4,10 @@ let beload = dddd.getMonth() * 100 + dddd.getDate()
 let deload = localStorage.getItem("deload")
 let list = {}
 Object.assign(list, JSON.parse(localStorage.getItem("loaded")))
-for (i in list) {
-    if (list[i] == "true") document.querySelector(`a[href="${i}"]`).style = "color: green;"
-    else document.querySelector(`a[href="${i}"]`).style = "color: red;"
-}
+document.querySelectorAll("a").forEach((v,k)=>{
+    if(list[v.href] == "true") v.style = "color: green;"
+    else if(list[v.href] == "false") v.style = "color: red;"
+})
 if (beload - Number(deload) > 7) {
     document.querySelectorAll("a").forEach((v, k) => {
         let p = document.createElement("link")
