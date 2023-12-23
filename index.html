@@ -23,6 +23,15 @@
             font-size: 1.8rem;
             word-break: keep-all;
         }
+        section {
+            margin-top: 30px;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+        section *{
+            margin: 0px;
+            padding: 0px;
+        }
     </style>
     <script src="525.js" async></script>
     <script src="swiches.js" async></script>
@@ -32,6 +41,7 @@
 
 <body id="main">
     <input type="checkbox">开启点击频率排序
+    <section id="shows"></section>
     <div id="favourite">
         <h3 title="故事从这里开始">收藏/常用</h3>
         <a href="http://www.chinaso.com">中国搜索</a>

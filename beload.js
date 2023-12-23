@@ -1,6 +1,6 @@
 console.log("正在加载：链接活跃性检测" + Date())
-let dddd = new Date()
-let beload = dddd.getMonth() * 100 + dddd.getDate()
+let beloadDate = new Date()
+let beload = beloadDate.getMonth() * 100 + beloadDate.getDate()
 let deload = localStorage.getItem("deload")
 let list = {}
 Object.assign(list, JSON.parse(localStorage.getItem("loaded")))
