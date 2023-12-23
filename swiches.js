@@ -5,7 +5,8 @@ document.querySelectorAll("div").forEach((v, k) => {
 })
 Object.assign(divs, JSON.parse(localStorage.getItem("divs")))
 if (localStorage.getItem("onsort") == 'true') {
-    document.querySelector("#shows").innerHTML = "<p>点击频次： </p>"
+    document.querySelector("#shows").style = "display: block;"
+    document.querySelector("#shows").innerHTML = "<p style=\"text-align: center;\">点击频次</p>"
     let divr = []
     let ids = 0
     for (i in divs) {
