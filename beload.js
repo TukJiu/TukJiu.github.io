@@ -1,12 +1,12 @@
 console.log("正在加载：链接活跃性检测" + Date())
 let beloadDate = new Date()
-let beload = beloadDate.getMonth() * 100 + beloadDate.getDate()
+let beload = beloadDate.getFullYear() * 10000 + beloadDate.getMonth() * 100 + beloadDate.getDate()
 let deload = localStorage.getItem("deload")
 let list = {}
 Object.assign(list, JSON.parse(localStorage.getItem("loaded")))
-document.querySelectorAll("a").forEach((v,k)=>{
-    if(list[v.href] == "true") v.style = "color: green;"
-    else if(list[v.href] == "false") v.style = "color: red;"
+document.querySelectorAll("a").forEach((v, k) => {
+    if (list[v.href] == "true") v.style = "color: green;"
+    else if (list[v.href] == "false") v.style = "color: red;"
 })
 if (beload - Number(deload) > 7) {
     document.querySelectorAll("a").forEach((v, k) => {
