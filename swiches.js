@@ -27,8 +27,8 @@ if (localStorage.getItem("onsort") == 'true') {
         document.querySelector("#main").appendChild(p)
     }
 }
-if(localStorage.getItem("onsort") == 'true') document.querySelector("input").checked = true
-document.querySelector("input").onclick = (e)=>{
+if(localStorage.getItem("onsort") == 'true') document.querySelector("#box-sortdivs").checked = true
+document.querySelector("#box-sortdivs").onclick = (e)=>{
     localStorage.setItem("onsort", e.target.checked)
 }
 document.querySelectorAll("a").forEach((v, k) => {
