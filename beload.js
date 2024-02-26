@@ -12,7 +12,6 @@ if (localStorage.getItem("ondeload") == "true") {
     if (beload - Number(deload) > 7) {
         document.querySelectorAll("a").forEach((v, k) => {
             fetch(`${location.href.slice(-1)=="/"?location.href.slice(0,-1):location.href}:93?name=${v.innerHTML}&url=${v.href}`).then(res => res.json()).then(data => {
-                console.log(data.msg)
                 if(data.code=="200") {
                     list[v.href] = "true"
                     v.style = "color: green;"
@@ -22,6 +21,7 @@ if (localStorage.getItem("ondeload") == "true") {
                     v.style = "color: red;"
                     localStorage.setItem("loaded", JSON.stringify(list))
                 }
+                console.log(`[server]${data.msg}`)
             }).catch(err => {
                 console.log(`测试服务器未连接： ${err}`)
                 let p = document.createElement("link")
@@ -33,18 +33,21 @@ if (localStorage.getItem("ondeload") == "true") {
                     v.style = "color: green;"
                     document.querySelector("body").removeChild(p)
                     localStorage.setItem("loaded", JSON.stringify(list))
+                    console.log(`链接正常：[link][200]${v.innerHTML} : ${v.href}`)
                 }
                 p.onabort = () => {
                     list[v.href] = "false"
                     v.style = "color: red;"
                     document.querySelector("body").removeChild(p)
                     localStorage.setItem("loaded", JSON.stringify(list))
+                    console.log(`链接失效：[link][404]${v.innerHTML} : ${v.href}`)
                 }
                 p.onerror = () => {
                     list[v.href] = "false"
                     v.style = "color: red;"
                     document.querySelector("body").removeChild(p)
                     localStorage.setItem("loaded", JSON.stringify(list))
+                    console.log(`链接失效：[link][404]${v.innerHTML} : ${v.href}`)
                 }
                 document.querySelector("body").appendChild(p)
             })

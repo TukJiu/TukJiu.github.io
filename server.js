@@ -25,7 +25,7 @@ http.createServer((req, res) => {
     if (url == undefined || name == undefined) {
         res.end(JSON.stringify({
             "code": "403",
-            "msg": "参数未完全传递",
+            "msg": "[403]参数未完全传递",
             "name": null,
             "url": null
         }))
@@ -40,14 +40,14 @@ http.createServer((req, res) => {
             if (resr.statusCode >= 200 && resr.statusCode < 400) {
                 res.end(JSON.stringify({
                     "code": "200",
-                    "msg": `链接正常：${name} : ${url}`,
+                    "msg": `链接正常：[200]${name} : ${url}`,
                     "name": name,
                     "url": url
                 }))
             } else {
                 res.end(JSON.stringify({
                     "code": "404",
-                    "msg": `链接无效：${name} : ${url}`,
+                    "msg": `链接无效：[404]${name} : ${url}`,
                     "name": name,
                     "url": url
                 }))
@@ -55,7 +55,7 @@ http.createServer((req, res) => {
         }).on('error', (e) => {
             res.end(JSON.stringify({
                 "code": "500",
-                "msg": `主机下线: ${name} : ${url}===>>${e.message}`,
+                "msg": `主机下线: [500]${name} : ${url}===>>${e.message}`,
                 "name": name,
                 "url": url
             }))
@@ -69,14 +69,14 @@ http.createServer((req, res) => {
             if (resr.statusCode >= 200 && resr.statusCode < 400) {
                 res.end(JSON.stringify({
                     "code": "200",
-                    "msg": `链接正常：${name} : ${url}`,
+                    "msg": `链接正常：[200]${name} : ${url}`,
                     "name": name,
                     "url": url
                 }))
             } else {
                 res.end(JSON.stringify({
                     "code": "404",
-                    "msg": `链接无效：${name} : ${url}`,
+                    "msg": `链接无效：[404]${name} : ${url}`,
                     "name": name,
                     "url": url
                 }))
@@ -84,7 +84,7 @@ http.createServer((req, res) => {
         }).on('error', (e) => {
             res.end(JSON.stringify({
                 "code": "500",
-                "msg": `主机下线: ${name} : ${url}===>>${e.message}`,
+                "msg": `主机下线: [500]${name} : ${url}===>>${e.message}`,
                 "name": name,
                 "url": url
             }))
@@ -92,7 +92,7 @@ http.createServer((req, res) => {
     } else {
         res.end(JSON.stringify({
             "code": "405",
-            "msg": `协议错误：${name} : ${url}`,
+            "msg": `协议错误：[405]${name} : ${url}`,
             "name": name,
             "url": url
         }))
