@@ -1,6 +1,4 @@
 console.log("正在加载：链接活跃性检测" + Date())
-let triedTime = 0
-let MaxTriedTime = 18
 if (localStorage.getItem("ondeload") == "true") {
     let beloadDate = new Date()
     let beload = beloadDate.getFullYear() * 10000 + beloadDate.getMonth() * 100 + beloadDate.getDate()
@@ -13,50 +11,18 @@ if (localStorage.getItem("ondeload") == "true") {
     })
     if (beload - Number(deload) > 7) {
         document.querySelectorAll("a").forEach((v, k) => {
-            if (triedTime < MaxTriedTime) {
-                fetch(`${location.href.slice(-1) == "/" ? location.href.slice(0, -1) : location.href}:93?name=${v.innerHTML}&url=${v.href}`).then(res => res.json()).then(data => {
-                    if (data.code == "200") {
-                        list[v.href] = "true"
-                        v.style = "color: green;"
-                        localStorage.setItem("loaded", JSON.stringify(list))
-                    } else {
-                        list[v.href] = "false"
-                        v.style = "color: red;"
-                        localStorage.setItem("loaded", JSON.stringify(list))
-                    }
-                    console.log(`[server]${data.msg}`)
-                }).catch(err => {
-                    triedTime++
-                    console.log(`测试服务器未连接： ${err}  尝试次数：${triedTime}/${MaxTriedTime}`)
-                    if(triedTime == MaxTriedTime) console.log("测试服务器链接超时，启用本地检测")
-                    let p = document.createElement("link")
-                    p.rel = "stylesheet"
-                    p.type = "text/css"
-                    p.href = v.href
-                    p.onload = () => {
-                        list[v.href] = "true"
-                        v.style = "color: green;"
-                        document.querySelector("body").removeChild(p)
-                        localStorage.setItem("loaded", JSON.stringify(list))
-                        console.log(`链接正常：[link][200]${v.innerHTML} : ${v.href}`)
-                    }
-                    p.onabort = () => {
-                        list[v.href] = "false"
-                        v.style = "color: red;"
-                        document.querySelector("body").removeChild(p)
-                        localStorage.setItem("loaded", JSON.stringify(list))
-                        console.log(`链接失效：[link][404]${v.innerHTML} : ${v.href}`)
-                    }
-                    p.onerror = () => {
-                        list[v.href] = "false"
-                        v.style = "color: red;"
-                        document.querySelector("body").removeChild(p)
-                        localStorage.setItem("loaded", JSON.stringify(list))
-                        console.log(`链接失效：[link][404]${v.innerHTML} : ${v.href}`)
-                    }
-                    document.querySelector("body").appendChild(p)
-                })
-            } else {
+            fetch(`${location.href.slice(-1) == "/" ? location.href.slice(0, -1) : location.href}:93?name=${v.innerHTML}&url=${v.href}`).then(res => res.json()).then(data => {
+                if (data.code == "200") {
+                    list[v.href] = "true"
+                    v.style = "color: green;"
+                    localStorage.setItem("loaded", JSON.stringify(list))
+                } else {
+                    list[v.href] = "false"
+                    v.style = "color: red;"
+                    localStorage.setItem("loaded", JSON.stringify(list))
+                }
+                console.log(`[server]${data.msg}`)
+            }).catch(err => {
                 let p = document.createElement("link")
                 p.rel = "stylesheet"
                 p.type = "text/css"
@@ -83,7 +49,7 @@ if (localStorage.getItem("ondeload") == "true") {
                     console.log(`链接失效：[link][404]${v.innerHTML} : ${v.href}`)
                 }
                 document.querySelector("body").appendChild(p)
-            }
+            })
         })
         localStorage.setItem("deload", beload)
     }
