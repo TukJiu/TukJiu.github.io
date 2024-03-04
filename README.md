@@ -1,2 +1,2 @@
-# [故事从此开始](https://TukJiu.github.io)
-## 这是一个用于多平台查看使用的我自己的收藏夹，以及我一般共享给别人链接的话可能会用这个项目
+# TukJiu.github.io
+Here NOTHING. It just my notice.
