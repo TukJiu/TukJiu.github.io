@@ -4,7 +4,7 @@ const fs = require('fs')
 const urls = require('url')
 
 http.createServer((req, res) => {
-    console.log(`<http 80> [${req.socket.remoteAddress}] : get ${req.url}`)
+    console.log(`<http 80> [${req.socket.remoteAddress}] : starting get ${req.url}`)
     if (req.url === '/') req.url = '/index.html'
     fs.readFile(req.url.slice(1), (err, data) => {
         if (err) {
@@ -19,7 +19,7 @@ http.createServer((req, res) => {
     })
 }).listen(80)
 http.createServer((req, res) => {
-    console.log(`<linkserver 93> [${req.socket.remoteAddress}] : request ${req.url}`)
+    console.log(`<linkserver 93> [${req.socket.remoteAddress}] : starting request ${req.url}`)
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("charset", "utf-8")
     res.writeHead(200, "{'Content-Type': 'json/html'}")
