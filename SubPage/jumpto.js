@@ -1,0 +1,1 @@
+document.querySelector(location.href.slice(location.href.indexOf('#'))).scrollIntoView({behavior: 'smooth'})
