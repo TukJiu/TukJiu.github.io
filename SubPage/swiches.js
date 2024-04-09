@@ -20,7 +20,7 @@ if (localStorage.getItem("onsort") == 'true') {
         return b.ct - a.ct
     })
     for (let i = 0; i < ids; i++) {
-        document.querySelector("section").innerHTML += `<p id="_${divr[i].id}">${document.querySelector("#"+divr[i].id).querySelector("h3").innerHTML} : ${divr[i].ct}</p>`
+        document.querySelector("section").innerHTML += `<p id="_${divr[i].id}" onclick="document.querySelector('#${divr[i].id}').scrollIntoView({ behavior: 'smooth' })">${document.querySelector("#"+divr[i].id).querySelector("h3").innerHTML} : ${divr[i].ct}</p>`
         let p = document.createElement('div')
         p = document.querySelector(`#${divr[i].id}`)
         document.querySelector("#main").removeChild(document.querySelector(`#${divr[i].id}`))
