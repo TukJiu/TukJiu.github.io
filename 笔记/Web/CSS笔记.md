@@ -270,6 +270,8 @@ a:hover~li{
 }
 ```
 
+### 状态选择器
+
 当a元素被鼠标指向时触发li标签的样式变化，也可以正常使用。
 
 ```css
@@ -283,6 +285,12 @@ a:hover{/*被鼠标指向*/
     /*参数*/
 }
 a:active{/*被鼠标点击*/
+    /*参数*/
+}
+input:focus{/*输入框被选中*/
+    /*参数*/
+}
+*:lang(zh-cn){/*当页面语言是中文时*/
     /*参数*/
 }
 ```
@@ -1106,8 +1114,6 @@ CSS文字渐变手写特效
 </div>
 ```
 
-
-
 ```css
 .c {
     display: flex;
@@ -1137,9 +1143,24 @@ CSS文字渐变手写特效
 }
 ```
 
+基于背景的鼠标指向时线条从文件下面左边出现，鼠标移出后线条由右边移出的效果
 
+```css
+/*
+    来自互联网
+    制作一种基于背景的鼠标指向时线条从文件下面左边出现，鼠标移出后线条由右边移出的效果
+*/
 
-
+.animationSubLine{
+    background: linear-gradient(to right,#ec695c,#61c454) no-repeat right bottom;
+    background-size: 0 2px;
+    transition: background-size 1300ms;
+}
+.animationSubLine:hover{
+    background-position-x: left;
+    background-size: 100% 2px;
+}
+```
 
 # 页面设计
 
