@@ -1143,18 +1143,13 @@ CSS文字渐变手写特效
 }
 ```
 
-基于背景的鼠标指向时线条从文件下面左边出现，鼠标移出后线条由右边移出的效果
+制作一种基于背景的鼠标指向时线条从文件下面左边出现，鼠标移出后线条由右边移出的效果
 
 ```css
-/*
-    来自互联网
-    制作一种基于背景的鼠标指向时线条从文件下面左边出现，鼠标移出后线条由右边移出的效果
-*/
-
 .animationSubLine{
     background: linear-gradient(to right,#ec695c,#61c454) no-repeat right bottom;
     background-size: 0 2px;
-    transition: background-size 1300ms;
+    transition: background-size 300ms;
 }
 .animationSubLine:hover{
     background-position-x: left;
