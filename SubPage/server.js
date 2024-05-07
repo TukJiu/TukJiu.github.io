@@ -4,22 +4,22 @@ const fs = require('fs')
 const urls = require('url')
 
 http.createServer((req, res) => {
-    console.log(`<http 80> [${req.socket.remoteAddress}] : starting get ${req.url}`)
+    console.log(`<http 80> ${new Date()} [${req.socket.remoteAddress}] : starting get ${req.url}`)
     if (req.url === '/') req.url = '/index.html'
     fs.readFile(req.url.slice(1), (err, data) => {
         if (err) {
             res.writeHead(404, { 'Content-Type': 'text/html' })
             res.end('404 Not Found')
-            console.log(`<http 80> [${req.socket.remoteAddress}] : get ${req.url} 404`)
+            console.log(`<http 80> ${new Date()} [${req.socket.remoteAddress}] : get ${req.url} 404`)
         } else {
             res.writeHead(200, { 'Content-Type': 'text/html' })
             res.end(data)
-            console.log(`<http 80> [${req.socket.remoteAddress}] : get ${req.url} 200`)
+            console.log(`<http 80> ${new Date()} [${req.socket.remoteAddress}] : get ${req.url} 200`)
         }
     })
 }).listen(80)
 http.createServer((req, res) => {
-    console.log(`<linkserver 93> [${req.socket.remoteAddress}] : starting request ${req.url}`)
+    console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : starting request ${req.url}`)
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("charset", "utf-8")
     res.writeHead(200, "{'Content-Type': 'json/html'}")
@@ -33,7 +33,7 @@ http.createServer((req, res) => {
             "name": null,
             "url": null
         }))
-        console.log(`<linkserver 93> [${req.socket.remoteAddress}] : request [403]参数未完全传递 ===>> ${req.url}`)
+        console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : request [403]参数未完全传递 ===>> ${req.url}`)
         return
     }
     if (url.slice(0, 7) == "http://") {
@@ -49,7 +49,7 @@ http.createServer((req, res) => {
                     "name": name,
                     "url": url
                 }))
-                console.log(`<linkserver 93> [${req.socket.remoteAddress}] : 链接正常：[200]${name} : ${url}`)
+                console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : 链接正常：[200]${name} : ${url}`)
             } else {
                 res.end(JSON.stringify({
                     "code": "404",
@@ -57,7 +57,7 @@ http.createServer((req, res) => {
                     "name": name,
                     "url": url
                 }))
-                console.log(`<linkserver 93> [${req.socket.remoteAddress}] : 链接无效：[404]${name} : ${url}`)
+                console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : 链接无效：[404]${name} : ${url}`)
             }
         }).on('error', (e) => {
             res.end(JSON.stringify({
@@ -66,7 +66,7 @@ http.createServer((req, res) => {
                 "name": name,
                 "url": url
             }))
-            console.log(`<linkserver 93> [${req.socket.remoteAddress}] : 主机下线: [500]${name} : ${url}===>>${e.message}`)
+            console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : 主机下线: [500]${name} : ${url}===>>${e.message}`)
         }).end()
     } else if (url.slice(0, 8) == "https://") {
         https.request({
@@ -81,7 +81,7 @@ http.createServer((req, res) => {
                     "name": name,
                     "url": url
                 }))
-                console.log(`<linkserver 93> [${req.socket.remoteAddress}] : 链接正常：[200]${name} : ${url}`)
+                console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : 链接正常：[200]${name} : ${url}`)
             } else {
                 res.end(JSON.stringify({
                     "code": "404",
@@ -89,6 +89,7 @@ http.createServer((req, res) => {
                     "name": name,
                     "url": url
                 }))
+                console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : 链接无效：[404]${name} : ${url}`)
             }
         }).on('error', (e) => {
             res.end(JSON.stringify({
@@ -97,7 +98,7 @@ http.createServer((req, res) => {
                 "name": name,
                 "url": url
             }))
-            console.log(`<linkserver 93> [${req.socket.remoteAddress}] : 主机下线: [500]${name} : ${url}===>>${e.message}`)
+            console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : 主机下线: [500]${name} : ${url}===>>${e.message}`)
         }).end()
     } else {
         res.end(JSON.stringify({
@@ -106,6 +107,6 @@ http.createServer((req, res) => {
             "name": name,
             "url": url
         }))
-        console.log(`<linkserver 93> [${req.socket.remoteAddress}] : 协议错误：[405]${name} : ${url}`)
+        console.log(`<linkserver 93> ${new Date()} [${req.socket.remoteAddress}] : 协议错误：[405]${name} : ${url}`)
     }
 }).listen(93)

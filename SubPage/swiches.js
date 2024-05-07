@@ -16,6 +16,8 @@ if (localStorage.getItem("onsort") == 'true') {
         divr[ids] = temps
         ids++
     }
+    divr = divr.filter(a => document.querySelector(`#${a.id}`) != null)
+    ids = divr.length
     divr.sort((a, b) => {
         return b.ct - a.ct
     })
@@ -36,6 +38,11 @@ document.querySelectorAll("a").forEach((v, k) => {
         divs[e.target.parentNode.id] += 1
         localStorage.setItem("divs", JSON.stringify(divs))
         document.querySelector("#_"+e.target.parentNode.id).innerHTML = `${document.querySelector("#"+e.target.parentNode.id).querySelector("h3").innerHTML} : ${divs[e.target.parentNode.id]}`
+    }
+})
+document.querySelectorAll("h3").forEach((v, k) => {
+    v.onclick = (e) => {
+        document.querySelector("#main").scrollIntoView({behavior: 'smooth'})
     }
 })
 console.log("已加载：点击频率排序" + Date())
