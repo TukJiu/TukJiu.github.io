@@ -1,1 +1,0 @@
-if(location.href.indexOf('#') != -1 && location.href.slice(location.href.indexOf('#')) != '#') document.querySelector(location.href.slice(location.href.indexOf('#'))).scrollIntoView({behavior: 'smooth'})
