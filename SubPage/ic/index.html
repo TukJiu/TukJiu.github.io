@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>批量身份证解析验证</title>
+	<style type="text/css" rel="stylesheet">
+		body {
+			color: #ddd;
+			background: #111;
+		}
+
+		#uiw {
+			position: relative;
+			width: 100%;
+			height: 25px;
+			background: #222;
+			user-select: none;
+			border: 1px solid lightgreen;
+		}
+
+		#number {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			color: #ccc;
+			background: transparent;
+			user-select: none;
+			padding: 0px;
+			outline: none;
+			border: none;
+			box-shadow: inset 0 0 0, 0 0 0;
+		}
+
+		#number:focus {
+			color: #fff;
+			box-shadow: inset 0 0 5px lightgreen, 0 0 5px lightgreen;
+		}
+
+
+		#prow {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			left: 0px;
+			top: 0px;
+			background: #222;
+			user-select: none;
+		}
+
+		#pro {
+			position: absolute;
+			background: lightgreen;
+			height: 100%;
+			width: 0%;
+		}
+
+		o {
+			color: lightgreen;
+			font-size: 13px;
+			user-select: none;
+		}
+
+		#modc {
+			background: #222;
+			height: 23px;
+			width: 18rem;
+			display: flex;
+			border: 1px solid #333;
+			border-radius: 10px;
+			box-shadow: inset 2px 2px 3px #333, inset -2px -2px 3px #333;
+		}
+
+		label {
+			color: #d83;
+			text-align: center;
+			user-select: none;
+			flex: 1;
+			transition: all ease 100ms;
+		}
+
+		label#s {
+			background: #3d8;
+			border: 1px solid #111;
+			border-radius: 10px;
+			box-shadow: 0 0 5px lightgreen;
+		}
+
+		input[type=radio] {
+			display: none;
+		}
+
+		#echo {
+			margin: 0px;
+			padding: 0px;
+			position: relative;
+			color: #fff;
+			background: #111;
+			width: 100%;
+			bottom: 0px;
+			left: 0px;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		p {
+			margin: 0px;
+			padding: 0px;
+			margin-bottom: 5px;
+			margin-top: 5px;
+			border-radius: 2px;
+			background: #222;
+		}
+
+		p.falseNum {
+			color: orange;
+			border: 1px solid red;
+			box-shadow: 0 0 5px red;
+		}
+
+		p.trueNum {
+			color: lightblue;
+			border: 1px solid lightgreen;
+			box-shadow: 0 0 5px lightgreen;
+		}
+
+		.showAll p {
+			display: block;
+		}
+
+		.showTrue p.falseNum {
+			display: none;
+		}
+
+		.showFalse p.trueNum {
+			display: none;
+		}
+	</style>
+	<script>
+		if (location.href.indexOf("index.html") === -1) location.href.slice(-1) === "/" ? location.href += "index.html" : location.href += "/index.html"
+		var worker;
+		window.onload = () => {
+			worker = new Worker("worker.js")
+			worker.onmessage = (event) => {
+				let { text, real, pro } = event.data
+				let p = document.createElement("p")
+				p.innerHTML = text
+				p.className = real
+				document.querySelector("#pro").style.width = pro + "%"
+				document.querySelector("#echo").appendChild(p)
+				if (text.indexOf(endn) !== -1) {
+					document.querySelector("#pro").style.width = "0%"
+					document.querySelector("o").innerText = "可以进行操作"
+					document.querySelector("o").style.color = "lightgreen"
+				}
+			}
+		}
+		function l(event) {
+			let doc = document.querySelector("#number");
+			doc.value = doc.value.replace(/[^\d\X]/ig, "");
+			let text = doc.value;
+			if (text === "") {
+				document.querySelector("#echo").innerHTML = "";
+			} else if (text.length % 18) {
+				document.querySelector("#echo").innerHTML = "<p class=\"falseNum\">还差" + (18 - text.length % 18) + "字数达标！</p>";
+			} else {
+				endn = text.slice(text.length - 18, text.length)
+				document.querySelector("#echo").innerHTML = ""
+				worker.postMessage(text)
+				document.querySelector("o").innerText = "计算中，不要操作！"
+				document.querySelector("o").style.color = "orange"
+			}
+		}
+
+		function modc(t) {
+			document.querySelector("#s").id = "ns"
+			t.parentElement.id = "s"
+			document.querySelector("#echo").className = t.id
+		}
+	</script>
+</head>
+
+<body>
+	<div id="uiw">
+		<div id="prow">
+			<div id="pro"></div>
+		</div><input type="text" id="number" autofocus oninput="l(event)" placeholder="粘贴身份证号解析数据"></input>
+	</div>
+	<o>可以进行操作</o>
+	<div id="modc">
+		<label id="s"><input type="radio" name="mods" id="showAll" onclick="modc(this)" checked>全部</label>
+		<label><input type="radio" name="mods" id="showTrue" onclick="modc(this)">正确</label>
+		<label><input type="radio" name="mods" id="showFalse" onclick="modc(this)">错误</label>
+	</div>
+	<div id="echo" class="showAll">
+		<p class="trueNum">在数据运算过程中，请避免输入内容，以防输出双重数据！</p>
+		<p class="falseNum">输入框以背景变化的方式来指示进度，进度条归零视为计算完成！</p>
+		<p class="trueNum">绿色的边框的输出数据代表正确的身份证号</p>
+		<p class="falseNum">红色的边框的输出数据代表错误的身份证号</p>
+	</div>
+</body>
+
+</html>
