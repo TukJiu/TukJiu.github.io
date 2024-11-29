@@ -3,7 +3,18 @@ const https = require('https')
 const fs = require('fs')
 const urls = require('url')
 
+function handleapi(req, res) {
+    console.log(urls.parse(req.url, true))
+    res.write('ok, but here not support yet')
+}
+
 http.createServer((req, res) => {
+    if (req.url.slice(4) === '/api') {
+        res.writeHead(200, { 'Content-Type': 'text/plain' })
+        handleapi(req, res)
+        res.end()
+        return
+    }
     console.log(`<http 80> ${new Date()} [${req.socket.remoteAddress}] : starting get ${req.url}`)
     if (req.url === '/') req.url = '/index.html'
     fs.readFile(req.url.slice(1), (err, data) => {
