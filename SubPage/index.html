@@ -32,14 +32,16 @@
         #main>div#selector>div>input {
             display: none;
         }
-        #main>div#selector>p{
+
+        #main>div#selector>p {
             display: inline-block;
         }
-        #main>div#selector{
+
+        #main>div#selector {
             user-select: none;
         }
+
         #main>a {
-            transition: all 0.5s;
             font-size: 1.45rem;
             margin: 1rem;
             word-break: keep-all;
@@ -50,9 +52,11 @@
     <script src="show.js" defer></script>
     <script src="dying.js" defer></script>
     <script src="beload.js" defer></script>
+    <script src="https://unpkg.com/sober@1.0.4/dist/sober.min.js"></script>
 </head>
 
 <body id="main">
+    <s-page theme="auto" onchange="themeChange()"></s-page>
     <div id="selector">
         <b>点击分类以显示对应的内容：</b><br>&emsp;
         <div><input type="checkbox" id="link-favourite"><label for="link-favourite">收藏/常用</label></div>
@@ -317,7 +321,6 @@
     <a href="https://goblin.tools" class="ai">对词汇进行理解</a>
     <a href="https://www.photopea.com" class="picture tools">在线PS</a>
     <a href="https://imagestool.com/zh_CN/index.html" class="picture tools">在线图片编辑</a>
-    <a href="https://www.remobe.bj" class="picture tools">在线去除图片背景</a>
     <a href="https://tineye.com" class="picture tools">图片搜索</a>
     <a href="https://bigjpg.com" class="picture tools">AI图片放大</a>
     <a href="https://clipdrop.co" class="picture tools">AI图片换背景</a>
@@ -510,7 +513,6 @@
     <a href="https://www.znck007.com" class="documents school">智能创客</a>
     <a href="https://www.12339.gov.cn/h5_index" class="tools gov">国家安全机关举报受理平台</a>
     <a href="https://m3w.cn/xszhgl" class="school">学生综合管理</a>
-    <a href="https://www.tjdz.edu.cn" class="school">本地俗称-大电子</a>
     <a href="https://cyberpolice.mps.gov.cn" class="gov">网络违法犯罪举报网站</a>
     <a href="https://www.squid-cache.org" class="build tools"></a>
     <a href="https://ai.xty.app" class="ai tools">AICore</a>
@@ -521,9 +523,164 @@
     <a href="https://www.ddosi.org/holehe" class="tools black">邮箱泄漏探测</a>
     <a href="https://worktile.com" class="documents">Worktile社区</a>
     <a href="https://www.fnmqs.work" class="documents">云梦博客</a>
-    <a href="https://geneva.cs.umd.edu/zh/posts/china-censors-esni" class="documents internet">关于Geneva团队对于我国国家长城防火墙的研究</a>
+    <a href="https://geneva.cs.umd.edu/zh/posts/china-censors-esni"
+        class="documents internet">关于Geneva团队对于我国国家长城防火墙的研究</a>
     <a href="https://iyouport.substack.com" class="documents">普通人也能用到的特工知识</a>
-    <a href="#" class="documents lose">数据丢失-反党的人是怎样保证电脑资料安全的</a>
-</div>
+    <a href="https://program-think.blogspot.com/2019/01/Security-Guide-for-Political-Activists.html"
+        class="documents internet black">反党人如何保持资源安全</a>
+    <a href="https://fcp7.com/without-vpn.html"
+        class="documents internet black">通过SNI绕过DNS污染[仅可用作加速github,cloudflare]</a>
+    <a href="https://air.moe/" class="documents">~晴空小站~</a>
+    <a href="https://air.moe/funs" class="tools favourite">玲珑阁 - ~青空小站~</a>
+    <a href="https://www.aigei.com/" class="tools design">爱给网</a>
+    <a href="https://www.aigei.com/tool/image" class="tools picture">在线图片编辑器</a>
+    <a href="https://starxn.com" class="build tools">星辰云</a>
+    <a href="https://abc.ufun.net" class="tools ai">AI工具箱</a>
+    <a href="https：//www.chahaoba.com" class="tools gov">查号吧</a>
+    <a href="https://www.luffycity.com" class="learn">路飞学城</a>
+    <a href="https://offerwing.cn" class="earning">面试工具</a>
+    <a href="https://www.lifeupapp.fun" class="learn tools">人升</a>
+    <a href="https://www.nomoreransom.org/zh/index.html" class="tools black">勒索病毒文件解锁</a>
+    <a href="https://leetcode.cn/" class="learn">力扣</a>
+    <a href="https://www.lanqiao.cn/" class="learn">蓝桥云课/蓝桥杯</a>
+    <a href="https://www.ntlite.com/" class="tools">NTLite/ISO打包</a>
+    <a href="https://www.icourse163.org/" class="learn">中国大学MOOC</a>
+    <a href="https://www.freedgo.com/" class="tools favourite">绘图工具</a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes" class="build learn">CSS伪类</a>
+    <a href="https://soberjs.com/" class="build">SoberJS框架</a>
+    <a href="https://dapanyuntu.com/" class="tools">大盘云图</a>
+    <a href="https://finviz.com/map.ashx" class="tools">美股云图</a>
+    <a href="https://www.raidrive.com/" class="tools">RaiDrive本地云盘映射</a>
+    <a href="https://arctime.org/" class="tools vedio">Arctime</a>
+    <a href="https://test.nju.edu.cn/" class="tools internet">南京大学网速测试</a>
+    <a href="https://avahi.org/" class="tools internet">MDNS套装</a>
+    <a href="https://datav.aliyun.com/portal/school/atlas/area_selector" class="design picture tools">阿里云地图绘图</a>
+    <a href="https://www.tboxn.com/" class="tools">Tbox导航</a>
+    <a href="https://www.d-id.com/" class="tools ai">数字人[Vtuber]</a>
+    <a href="https://www.paddlepaddle.org.cn/" class="tools ai build">百度-飞桨-深度学习平台</a>
+    <a href="https://civitai.com/" class="ai">CivitAI绘图模型</a>
+    <a href="https://www.lagou.com/wn/" class="earning">拉钩求职</a>
+    <a href="https://www.lydaas.com/quickbi" class="tools ai">QuickBI大数据分析</a>
+    <a href="https://www.gufandf.top/" class="minecraft">孤帆</a>
+    <a href="https://www.gufandf.top/p/tutorials/minecraft_datapack/" class="minecraft">Minecraft数据包教程</a>
+    <a href="https://wiki.mcbe-dev.net/zh-cn/%E6%95%B0%E6%8D%AE%E5%8C%85" class="minecraft">Minecraft通信包</a>
+    <a href="https://immersivetranslate.com/" class="tools ai">ImmersiveTranslate递归翻译</a>
+    <a href="https://www.laxcus.com/" class="tools">Laxcus算力池[超算]搭建</a>
+    <a href="https://waf-ce.chaitin.cn/" class="tools ai build">长亭雷池WAF</a>
+    <a href="https://www.deviantart.com/" class="ai">DeviantArt绘图模型</a>
+    <a href="https://www.nomachine.com/" class="tools">NoMachine远程桌面</a>
+    <a href="https://www.kaspersky.com.cn/resource-center/threats/how-to-avoid-cyberstalking"
+        class="internet documents black">如何避免网络跟踪</a>
+    <a href="https://falsespace.net/sqli/" class="black">登录界面靶场[禁用工具包][JS逆向]</a>
+    <a href="https://shadowdefender.com/" class="tools">影子系统</a>
+    <a href="https://www.acronis.com/zh-cn/" class="tools">Windows备份管理</a>
+    <a href="https://www.secpulse.com/archives/183767.html" class="black">远控[免杀][横向移动]</a>
+    <a href="https://www.zjnav.com/" class="tools">终极导航</a>
+    <a href="https://www.thepunctuationguide.com/" class="tools text">标点符号指南</a>
+    <a href="https://www.hestudio.net/" class="documents">heSudio博客</a>
+    <a href="https://www.uedbox.com/post/56247/" class="black">UEDBOX反弹shell工具[免杀][反弹Shell]</a>
+    <a href="https://www.duyaoss.com/" class="internet documents">跨域工具测评</a>
+    <a href="https://cn.liquidbounce.net/" class="minecraft">LiquidBounce</a>
+    <a href="https://www.freebuf.com/" class="black documents">FreeBuf网安门户</a>
+    <a href="https://www.gnome-look.org/browse/" class="tools design">Gnome主题</a>
+    <a href="https://ghproxy.net/" class="tools favourite">GitHub代理</a>
+    <a href="https://www.12321.cn/warn.php" class="gov">12321网络不良信息举报</a>
+    <a href="https://www.usb-over-ethernet.com/" class="tools">网络共享USB</a>
+    <a href="https://www.bilibili.com/opus/819586983945830496" class="tools documents internet">FireFox便携版教程</a>
+    <a href="https://www.liblib.art/" class="tools ai picture">LibLibAI绘图</a>
+    <a href="https://wutheringwaves.kurogames-ads.com/?lang=en" class="mihoyo">WutheringWaves</a>
+    <a href="https://meis-apps.com/pc-bio-unlock" class="tools">手机验证解锁电脑</a>
+    <a href="https://meta.natapp4.cc/" class="documents">WELCOME TO VOXSHADOW BLOG `</a>
+    <a href="https://www.cloudns.net/" class="tools build">域名服务器</a>
+    <a href="https://www.doyoudo.com/" class="design learn text tools">Adobe系列教程/字体</a>
+    <a href="https://ai-bot.cn/emo/" class="ai">AI面容复制</a>
+    <a href="https://logodiffusion.com/" class="design ai">LogoDiffusion</a>
+    <a href="https://muchong.com/bbs/" class="documents learn">小木虫论坛</a>
+    <a href="https://www.zglibrary.com/" class="documents learn">藏书馆</a>
+    <a href="https://ebook.hep.com.cn/index.html" class="documents learn">高教书苑</a>
+    <a href="http://www.53bk.com/baokan/" class="gov">报刊</a>
+    <a href="http://www.53bk.com/" class="gov">数字报刊</a>
+    <a href="https://www.oalib.com/" class="documents">开放文献</a>
+    <a href="https://www.duxieren.com/" class="documents">读写人书评</a>
+    <a href="https://www.lanqb.com/" class="learn design">手工绘画学习</a>
+    <a href="http://www.cnu.cc/" class="learn design">光影创意</a>
+    <a href="https://www.zcool.com.cn/" class="design">站酷平面设计师平台</a>
+    <a href="https://www.gracg.com/home" class="design">动漫设计师平台</a>
+    <a href="https://www.hxfycg.com/" class="learn">绘画风格创意学习</a>
+    <a href="https://www.dance365.com/search" class="learn">舞蹈学习</a>
+    <a href="https://www.autopiano.cn/" class="tools favourite">在线模拟钢琴</a>
+    <a href="https://yopu.co/start?mode=startup" class="tools">Yopu乐谱</a>
+    <a href="https://www.fenbi.com/page/home" class="learn">粉笔考公</a>
+    <a href="https://zhenti.burningvocabulary.cn/" class="learn">四六级真题库</a>
+    <a href="https://www.asklib.com/" class="learn">AskLib问答题库</a>
+    <a href="https://www.yex.ink/" class="learn">刷题App</a>
+    <a href="https://www.gkzenti.cn/" class="learn">考公题库</a>
+    <a href="https://pintia.cn/home" class="tools">比赛考试设计平台</a>
+    <a href="https://www.examcoo.com/" class="tools">在线考试设计平台</a>
+    <a href="https://www.100ksw.com/zikao/" class="learn">自学题库</a>
+    <a href="https://www.huxiu.com/" class="news">虎嗅</a>
+    <a href="https://www.guokr.com/" class="news">果壳</a>
+    <a href="https://www.meihua.info/" class="earning earning text vedio">营销作品库</a>
+    <a href="https://www.addog.vip/" class="tools design text vedio">AdDog广告人网址导航[品牌/创意/设计/营销/文案]</a>
+    <a href="https://www.jiansouti.com/" class="tools">剪搜题库</a>
+    <a href="https://nav.cnxiaobai.com/" class="tools">小白导航</a>
+    <a href="https://www.yunyingpai.com/" class="design text vedio earning">运营派</a>
+    <a href="https://www.t262.com/" class="text">天天作文网</a>
+    <a href="https://www.gaokao.com/" class="tools">高考网</a>
+    <a href="https://mubert.com/render" class="audio ai">Mubert音乐生成</a>
+    <a href="https://creators.aiva.ai/login" class="audio ai">Aiva音乐生成</a>
+    <a href="https://openai.com/index/musenet/" class="audio ai">OpenAI音乐生成</a>
+    <a href="https://www.foodiesfeed.com/" class="design picture">食物图片素材库</a>
+    <a href="https://www.beautiful.ai/" class="design ai text tools">幻灯片AI美化</a>
+    <a href="https://echarts.apache.org/zh/index.html" class="build tools">EChartsJS图表库</a>
+    <a href="https://tinywow.com/" class="tools ai text picture vedio">TinyWowAI工具包</a>
+    <a href="https://www.shenyandayi.com/" class="ai text">深言达意</a>
+    <a href="https://www.yoojober.com/" class="ai text tools">简历建立工具</a>
+    <a href="https://vizard.video/" class="tools vedio">Vizard录屏</a>
+    <a href="https://space.bilibili.com/2145785190" class="documents learn">社会生存指南</a>
+    <a href="https://caddy2.dengxiaolong.com/docs/" class="documents">Caddy2HTTPS服务器说明书</a>
+    <a href="https://www.cybrary.it/" class="learn black">网安学习</a>
+    <a href="https://lyihub.com/" class="ai">大模型野榜</a>
+    <a href="https://loophole.cloud/" class="internet">Loophole内网穿透</a>
+    <a href="https://localhost.run/" class="internet">LocalHostRun内网穿透</a>
+    <a href="https://theboroer.github.io/localtunnel-www/" class="internet">LocalTunnel内网穿透</a>
+    <a href="https://expose.dev/#pro" class="internet">Expose内网穿透</a>
+    <a href="https://tunnel.staqlab.com/" class="internet">StaqLab内网穿透</a>
+    <a href="https://jprq.io/" class="internet">JPRQ内网穿透</a>
+    <a href="https://zrok.io/" class="internet">Zrok内网穿透[+udp]</a>
+    <a href="https://telebit.cloud/" class="internet">TeleBit内网穿透</a>
+    <a href="https://web.baimiaoapp.com/" class="design text tools picture">OCR工具</a>
+    <a href="https://www.veracrypt.fr/en/Home.html" class="tools black">VeraCrypt加密[有隐藏的已知漏洞]</a>
+    <a href="https://www.likebookmark.com/" class="tools">LikeBookmark书签</a>
+    <a href="https://3dpresso.ai/" class="tools design ai">3DpressoAI建模</a>
+    <a href="https://taichu-web.ia.ac.cn/" class="ai">太初AI</a>
+    <a href="https://www.zaobiao.net/" class="tools text">早标网论文降重</a>
+    <a href="https://www.chinesemooc.org/" class="learn">北大华文MOOC</a>
+    <a href="https://tuostudy.com/" class="learn">图欧学习资源库</a>
+    <a href="https://search.chongbuluo.com/" class="favourite">虫部落快搜</a>
+    <a href="https://www.jiandaoyun.com/" class="tools ai build">简道云零代码建站</a>
+    <a href="http://insecam.org/cn/" class="black">世界上最大的泄密摄像头观察窗</a>
+    <a href="https://bettergi.vercel.app/" class="mihoyo">更好的原神</a>
+    <a href="https://www.amuletmc.com/" class="minecraft">AmuletMC地图编辑器</a>
+    <a href="https://freecompress.com/zh-cn/compress-mp4" class="tools vedio">视频压缩</a>
+    <a href="https://freecompress.com/" class="tools picture audio vedio text build">压缩</a>
+    <a href="https://www.gongjugou.com/" class="tools">工具狗</a>
+    <a href="https://keepass.info/" class="tools">KeePass密码管理</a>
+    <a href="https://cn.overleaf.com" class="tools">在线协作工作</a>
+    </div>
+    </s-page>
+    <script>
+        //<s-page>
+        const page = document.querySelector('s-page')
+        //<meta name="theme-color" />
+        const themeColor = document.createElement('meta')
+        themeColor.name = 'theme-color'
+        document.head.appendChild(themeColor)
+        //onChange
+        function themeChange() {
+            themeColor.content = getComputedStyle(page).getPropertyValue(`--s-color${page.isDark ? '-dark' : ''}-surface-container`)
+        }
+    </script>
 </body>
+
 </html>
