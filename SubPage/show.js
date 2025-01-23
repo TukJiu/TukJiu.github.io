@@ -1,25 +1,10 @@
 console.log("links.js loading" + Date())
-const types = {
-    "link-favourite": "favourite",
-    "link-minecraft": "minecraft",
-    "link-mihoyo": "mihoyo",
-    "link-learn": "learn",
-    "link-design": "design",
-    "link-docments": "docments",
-    "link-build": "build",
-    "link-internet": "internet",
-    "link-earning": "earning",
-    "link-ai": "ai",
-    "link-picture": "picture",
-    "link-audio": "audio",
-    "link-vedio": "vedio",
-    "link-text": "text",
-    "link-tools": "tools",
-    "link-news": "news",
-    "link-school": "school",
-    "link-gov": "gov",
-    "link-black": "black"
-}
+let tmp_types = {}
+document.querySelectorAll("input[type=checkbox]").forEach(v => {
+    tmp_types[v.id] = v.id.slice(5)
+})
+const types = tmp_types
+delete tmp_types
 document.querySelectorAll("a").forEach(v => {
     v.style.display = "none"
 })
